@@ -13,6 +13,12 @@
     "mongo": {
       "serverUrl": "mongodb://localhost:27017/",
       "database": "stevens-scheduler-2.0"
+    },
+    "logs": {
+      "accessFilename": "access.log",
+      "errorFilename": "errors.log",
+      "databaseFilename": "db.log",
+      "consoleFilename": "console.log"
     }
   },
   "testing": {

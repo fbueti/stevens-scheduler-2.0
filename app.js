@@ -1,18 +1,20 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const HttpStatus = require('http-status-codes');
-const config = require('./lib/utils/config');
+
+const config = require('./lib/utils/config')();
+const loggers = require('./lib/utils/loggers');
 const router = require('./lib/routes');
 
 const app = express();
+app.set('env', config.env);
+
+// Logging - to stdout in development, to files in production
+app.use(loggers.httpLogger);
 
 // Todo: Setup templating engine (handlebars) @Fran
 
 // Static directory
 app.use(express.static('static'));
-
-app.use(bodyParser.json());
 
 app.use(router);
 

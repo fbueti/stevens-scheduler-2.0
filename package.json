@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "./node_modules/.bin/mocha --reporter=nyan"
   },
   "repository": {
@@ -18,12 +19,15 @@
   "homepage": "https://github.com/fbueti/stevens-scheduler-2.0#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
     "express": "^4.15.2",
+    "express-winston": "^2.3.0",
     "http-errors": "^1.6.1",
     "http-status-codes": "^1.1.6",
     "mongoose": "^4.9.3",
     "passport": "^0.3.2",
-    "require-dir": "^0.3.1"
+    "require-dir": "^0.3.1",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
