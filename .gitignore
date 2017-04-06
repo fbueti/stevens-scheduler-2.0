@@ -18,7 +18,13 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
-
+// Error handling
+app.use((err, req, res, next) => {
+  const description = err.description || err.message || 'Unknown Error';
+  const status = err.status || HttpStatus.INTERNAL_SERVER_ERROR;
+  // logger.error(`ERROR CODE ${status}: ${description}`);
+  res.status(status).send({description});
+});
 # nyc test coverage
 .nyc_output
 
