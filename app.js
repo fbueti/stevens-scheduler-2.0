@@ -1,6 +1,6 @@
 const express = require('express');
 const HttpStatus = require('http-status-codes');
-
+const path = require('path');
 const config = require('./lib/utils/config')();
 const loggers = require('./lib/utils/loggers');
 const router = require('./lib/routes');
@@ -11,10 +11,11 @@ app.set('env', config.env);
 // Logging - to stdout in development, to files in production
 app.use(loggers.httpLogger);
 
-// Todo: Setup templating engine (handlebars) @Fran
+// Templating engine
+app.set('view engine', 'pug');
 
 // Static directory
-app.use(express.static('static'));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(router);
 
