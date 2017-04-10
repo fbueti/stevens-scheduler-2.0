@@ -3,9 +3,10 @@ const HttpStatus = require('http-status-codes');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const session = require('express-session');
 const auth = require('./lib/auth');
 const config = require('./lib/utils/config');
-const { httpLogger, logger } = require('./lib/utils/loggers');
+const {httpLogger, logger} = require('./lib/utils/loggers');
 const router = require('./lib/routes');
 
 const app = express();
@@ -21,7 +22,7 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'static')));
 
 // Databse setup
-const { serverUri, database } = config.mongo;
+const {serverUri, database} = config.mongo;
 const fullDbUri = `${serverUri}/${database}`;
 const options = {};
 // Todo: add user / pass for production
@@ -35,10 +36,17 @@ db.on('error', (err) => {
   logger.error(`DATABASE: ${err}`);
   process.exit(1);
 });
-db.once('open', () => { logger.log('database', `Connection to ${fullDbUri} successful. `)});
+db.once('open', () => {
+  logger.log('database', `Connection to ${fullDbUri} successful. `)
+});
 
-// Passport session setup
-const { strategy, deserializeUser, serializeUser } = auth;
+// Passport + session setup
+app.use(session({
+  secret: config.session.secret,
+  saveUninitialized: true,
+  resave: false
+}));
+const {strategy, deserializeUser, serializeUser} = auth;
 passport.use(strategy);
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
