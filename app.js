@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const auth = require('./lib/auth');
-const config = require('./lib/utils/config')();
+const config = require('./lib/utils/config');
 const { httpLogger, logger } = require('./lib/utils/loggers');
 const router = require('./lib/routes');
 
