@@ -1,7 +1,7 @@
 {
   "name": "stevens-scheduler",
   "version": "1.0.0",
-  "description": "",
+  "description": "An updated Stevens Scheduler. 3.0?",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
@@ -21,8 +21,11 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.3",
     "express": "^4.15.2",
+    "express-session": "^1.15.2",
     "express-winston": "^2.3.0",
     "http-errors": "^1.6.1",
     "http-status-codes": "^1.1.6",
