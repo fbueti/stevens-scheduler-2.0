@@ -3,16 +3,16 @@
     "port": 3000,
     "name": "Stevens Scheduler 2.0",
     "mongo": {
-      "serverUrl": "mongodb://localhost:27017/",
-      "database": "stevens-scheduler-2.0"
+      "serverUri": "mongodb://localhost:27017",
+      "database": "stevens-scheduler-2"
     }
   },
   "production": {
     "port": 3000,
     "name": "Stevens Scheduler 2.0",
     "mongo": {
-      "serverUrl": "mongodb://localhost:27017/",
-      "database": "stevens-scheduler-2.0"
+      "serverUri": "mongodb://localhost:27017",
+      "database": "stevens-scheduler-2"
     },
     "logs": {
       "accessFilename": "access.log",
@@ -25,8 +25,8 @@
     "port": 3001,
     "name": "Stevens Scheduler 2.0",
     "mongo": {
-      "serverUrl": "mongodb://localhost:27017/",
-      "database": "test-stevens-scheduler-2.0"
+      "serverUri": "mongodb://localhost:27017",
+      "database": "test-stevens-scheduler-2"
     }
   }
 }
