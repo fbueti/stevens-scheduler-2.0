@@ -2,6 +2,8 @@ const express = require('express');
 const HttpStatus = require('http-status-codes');
 const path = require('path');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const auth = require('./lib/auth');
 const config = require('./lib/utils/config')();
 const { httpLogger, logger } = require('./lib/utils/loggers');
 const router = require('./lib/routes');
@@ -17,9 +19,6 @@ app.set('view engine', 'pug');
 
 // Static directory
 app.use(express.static(path.join(__dirname, 'static')));
-
-// Route setup
-app.use(router);
 
 // Databse setup
 const { serverUri, database } = config.mongo;
@@ -37,6 +36,17 @@ db.on('error', (err) => {
   process.exit(1);
 });
 db.once('open', () => { logger.log('database', `Connection to ${fullDbUri} successful. `)});
+
+// Passport session setup
+const { strategy, deserializeUser, serializeUser } = auth;
+passport.use(strategy);
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Route setup
+app.use(router);
 
 if (app.get('env') === 'production') {
   // @see https://expressjs.com/en/advanced/best-practice-performance.html#in-code
@@ -101,7 +111,7 @@ app.use((req, res) => {
 
   // respond with json
   if (req.accepts('json')) {
-    res.send({errorDescription});
+    res.json({errorDescription});
     return;
   }
 
@@ -112,7 +122,7 @@ app.use((req, res) => {
 
 function start() {
   app.listen(config.port, () => {
-    console.log(`${config.name} is listening on port ${config.port}`);
+    logger.log(`${config.name} is listening on port ${config.port}`);
   });
 }
 
