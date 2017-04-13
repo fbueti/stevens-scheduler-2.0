@@ -97,7 +97,7 @@ if (app.get('env') === 'production') {
     logger.error(`ERROR CODE ${status}: ${description}`);
 
     // Pass error along
-    res.locals.errorCode = errorCode; // eslint-disable-line
+    res.locals.errorCode = status; // eslint-disable-line
     res.locals.errorDescription = description; // eslint-disable-line
     next();
   });
