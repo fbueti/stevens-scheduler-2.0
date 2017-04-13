@@ -130,7 +130,7 @@ app.use((req, res) => {
 
 function start() {
   app.listen(config.port, () => {
-    logger.log(`${config.name} is listening on port ${config.port}`);
+    logger.info(`${config.name} is listening on port ${config.port}`);
   });
 }
 
