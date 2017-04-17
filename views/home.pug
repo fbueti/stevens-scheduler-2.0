@@ -1,6 +1,7 @@
 extends layouts/main
 
 block content
-	img(src=#{user.profile.photoURL})
+	var url = #{user.profile.photoURL};
+	img(src=url)
 	p hey #{user.profile.displayName} you're logged in
 	a(href='logout'): button Log out
