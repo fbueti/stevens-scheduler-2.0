@@ -89,6 +89,26 @@ if (app.get('env') === 'production') {
   });
 } else {
   // Development
+  // Setup webpack
+  const webpackConfig = require('./webpack.config');
+  const Webpack = require('webpack');
+  const WebpackMiddleware = require('webpack-dev-middleware');
+  const WebpackHotMiddleware = require('webpack-hot-middleware');
+  const compiler = Webpack(webpackConfig);
+  const wpMidware = WebpackMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+      color: true,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+    }
+  });
+
+  app.use(wpMidware);
+  app.use(WebpackHotMiddleware(compiler));
 
   // Error handling: Send more explicit errors
   app.use((err, req, res, next) => {
