@@ -5,6 +5,10 @@ html
 		block styles
 			link(rel='stylesheet' href='/css/main.css')
 	body
+		if user
+			img(src=user.profile.photoURL)
+			p #{user.profile.displayName}
+			a(href='logout'): button Log out
 		block scripts
 			script(type='javascript' src='/js/main.js')
 		block content
