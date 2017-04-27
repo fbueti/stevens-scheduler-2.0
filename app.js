@@ -90,7 +90,7 @@ if (app.get('env') === 'production') {
 } else {
   // Development
   // Setup webpack
-  const webpackConfig = require('./webpack.config');
+/*  const webpackConfig = require('./webpack.config');
   const Webpack = require('webpack');
   const WebpackMiddleware = require('webpack-dev-middleware');
   const WebpackHotMiddleware = require('webpack-hot-middleware');
@@ -108,7 +108,7 @@ if (app.get('env') === 'production') {
   });
 
   app.use(wpMidware);
-  app.use(WebpackHotMiddleware(compiler));
+  app.use(WebpackHotMiddleware(compiler));*/
 
   // Error handling: Send more explicit errors
   app.use((err, req, res, next) => {
