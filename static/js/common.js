@@ -1,4 +1,5 @@
-// This is the common chuck
+// This is where all the javascript for all pages should be put
+// Vue setup, logout stuff, etc
 
 
 Vue.use(VueResource);
