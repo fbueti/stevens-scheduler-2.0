@@ -3,8 +3,10 @@ html
 	head
 		title Stevens Scheduler
 		block styles
-			link(rel='stylesheet' href='/css/main.css')
+			//- All styles should be loaded in the js file with webpack
 	body
-		block scripts
-			script(type='javascript' src='/js/main.js')
 		block content
+		block scripts
+			//- Vendor scripts are common
+			script(type='text/javascript' src='/vendor.bundle.js')
+			//- All page scripts should be loaded the same
