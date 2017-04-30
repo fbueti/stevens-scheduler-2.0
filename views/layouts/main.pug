@@ -10,7 +10,8 @@ html
 			p #{user.profile.displayName}
 			a(href='logout'): button Log out
 		block scripts
-			script(type='javascript' src='/js/main.js')
-			script(type='javascript' src='https://unpkg.com/vue')
-			script(type='javascript' src='https://cdn.jsdelivr.net/vue.resource/1.3.1/vue-resource.min.js')
+			script(type='text/javascript' src='https://unpkg.com/vue@2.3.0')
+			script(type='text/javascript' src='https://cdn.jsdelivr.net/vue.resource/1.3.1/vue-resource.min.js')
+			script(type='text/javascript' src='/js/main.js')
+
 		block content
