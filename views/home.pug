@@ -1,8 +1,9 @@
 extends layouts/main
 
-//- do css like this too
 append scripts
-	script(type='text/javascript' src='/js/home.js')
-	script(type='text/javascript' src='/js/services/CourseService.js')
+	script(type='text/javascript' src='/home.bundle.js')
 
 block content
+	img(src=user.profile.photoURL)
+	p #{user.profile.displayName}
+	a(href='logout'): button Log out
