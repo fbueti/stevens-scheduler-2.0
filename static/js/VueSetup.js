@@ -6,5 +6,7 @@ import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
 Vue.http.options.xhr = { withCredentials: true };
+// Set the api as the root for all calls
+Vue.http.options.root = '/api';
 
 export default Vue;

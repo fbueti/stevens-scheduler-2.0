@@ -6,9 +6,8 @@
  */
 import Vue from '../VueSetup';
 
-const BASE_URL = 'http://localhost:3000/api';
-const SCHEDULES_BASE_URL = `${BASE_URL}/schedules`;
-const USERS_BASE_URL = `${BASE_URL}/users`;
+const SCHEDULES_BASE_URL = 'schedules';
+const USERS_BASE_URL = 'users';
 
 class ApiService {
 

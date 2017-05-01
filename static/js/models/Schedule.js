@@ -1,6 +1,7 @@
 /**
  * Created by austin on 4/27/17.
  */
+import Vue from '../VueSetup';
 
 class Schedule {
   constructor(data) {
