@@ -13,7 +13,6 @@ import Term from '../models/Term';
 
 const COURSES_BASE_URL = 'courses';
 
-
 class CourseService {
   static getTerms() {
     return Vue.http.get(`${COURSES_BASE_URL}/terms`)

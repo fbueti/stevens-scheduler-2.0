@@ -30,13 +30,17 @@ class Course {
 
     // Build meetings and requirements
     this.meetings = [];
-    for (const meetData of meetingsData) {
-      this.meetings.push(new Meeting(meetData));
+    if (meetingsData) {
+      for (const meetData of meetingsData) {
+        this.meetings.push(new Meeting(meetData));
+      }
     }
 
     this.requirements = [];
-    for (const rData of reqsData) {
-      this.requirements.push(new Requirement(rData));
+    if (reqsData) {
+      for (const rData of reqsData) {
+        this.requirements.push(new Requirement(rData));
+      }
     }
   }
 }
