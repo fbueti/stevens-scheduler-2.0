@@ -1,3 +1,4 @@
+require('dotenv').config({path: './keys.private.env'}); // Setup environment
 const express = require('express');
 const HttpStatus = require('http-status-codes');
 const path = require('path');

@@ -6,7 +6,6 @@ import Vue from './VueSetup';
 import CourseService from './services/CourseService';
 import ApiService from './services/ApiService';
 // Components
-import './components/Test';
 import './components/course';
 import './components/schedule-preview';
 import './components/schedule';

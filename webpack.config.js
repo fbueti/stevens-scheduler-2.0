@@ -46,7 +46,7 @@ module.exports = {
     home: path.join(__dirname, 'static', 'js', 'home.js'),
     shared: path.join(__dirname, 'static', 'js', 'shared.js'),
     splash: path.join(__dirname, 'static', 'js', 'splash.js'),
-    schedule: path.join(__dirname, 'static', 'js', 'schedule.js'),
+    edit: path.join(__dirname, 'static', 'js', 'edit.js'),
     vendor: ['vue', 'vue-resource'],
   },
   output: {
