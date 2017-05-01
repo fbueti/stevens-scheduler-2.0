@@ -4,6 +4,8 @@
  *
  * Handles Http Requests to our local api
  */
+import Vue from '../VueSetup';
+
 const BASE_URL = 'http://localhost:3000/api';
 const SCHEDULES_BASE_URL = `${BASE_URL}/schedules`;
 const USERS_BASE_URL = `${BASE_URL}/users`;
@@ -62,13 +64,17 @@ class ApiService {
   }
 
   // Users
-  static deleteUserById(id) {
-    return Vue.http.delete(`${USERS_BASE_URL}/${id}`)
+  static deleteUser() {
+    return Vue.http.delete(`${USERS_BASE_URL}`)
         .then((response) => {
           // Successful deletion
+          return response;
         })
         .catch((error) => {
           // Todo: Handle error
+          throw error;
         })
   }
 }
+
+export default ApiService;

@@ -11,3 +11,5 @@ class Schedule {
     this.notes = data.notes;
   }
 }
+
+export default Schedule;

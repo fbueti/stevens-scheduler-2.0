@@ -7,8 +7,8 @@ class Semester {
     this.numMeetings = numMeetings;
     this.numReqs = numReqs;
     this.courses = [];
-    for (const courseData of courses) {
-      this.courses.push(new Course(courseData));
-    }
+    this.courses = courses;
   }
 }
+
+export default Semester;

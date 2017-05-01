@@ -23,3 +23,5 @@ class Course {
     // Term is handled in the Schedule
   }
 }
+
+export default Course;

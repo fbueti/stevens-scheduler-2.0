@@ -3,6 +3,7 @@ const HttpStatus = require('http-status-codes');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const cors = require('cors');
 const auth = require('./lib/auth');
 const config = require('./lib/utils/config');
 const {httpLogger, logger} = require('./lib/utils/loggers');
@@ -11,13 +12,13 @@ const router = require('./lib/routes');
 
 const app = express();
 app.set('env', config.env);
+// Templating engine
+app.set('view engine', 'pug');
 
 // Logging - to stdout in development, to files in production
 app.use(httpLogger);
 
-// Templating engine
-app.set('view engine', 'pug');
-
+app.use(cors());
 // Static directory
 // The dist directory is where webpack builds to
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -39,7 +40,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Route setup
+
+// Cors setup
 app.use(router);
+
 
 if (app.get('env') === 'production') {
   // @see https://expressjs.com/en/advanced/best-practice-performance.html#in-code
@@ -85,7 +89,7 @@ if (app.get('env') === 'production') {
 
   webpack(wpConfig, (err, status) => {
     if (err || status.hasErrors()) {
-      logger.error(err);
+      logger.error(`Webpack build error: ${err}`);
     } else {
       logger.info('Rebuilt bundles.');
     }
@@ -126,7 +130,6 @@ app.use((req, res) => {
   // default to plain-text. send()
   res.type('txt').send(errorDescription);
 });
-
 
 function start() {
   app.listen(config.port, () => {

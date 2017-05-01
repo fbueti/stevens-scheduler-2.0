@@ -5,7 +5,13 @@ html
 		block styles
 			//- All styles should be loaded in the js file with webpack
 	body
+		if user
+			img(src=user.profile.photoURL)
+			p #{user.profile.displayName}
+			a(href='logout'): button Log out
+
 		block content
+
 		block scripts
 			//- Vendor scripts are common
 			script(type='text/javascript' src='/vendor.bundle.js')
