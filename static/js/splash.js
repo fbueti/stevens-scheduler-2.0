@@ -4,10 +4,8 @@
 import Vue from 'vue';
 import './main';
 
-const t = document.getElementById('test');
-t.innerText = 'test';
-
 Vue.http.get('https://google.com').then((res) => {
   console.log(res);
-  alert(res);
+}).catch((err) => {
+  console.error(err);
 });

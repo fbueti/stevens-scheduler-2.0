@@ -1,12 +1,12 @@
 const express = require('express');
 const HttpStatus = require('http-status-codes');
 const path = require('path');
-const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const auth = require('./lib/auth');
 const config = require('./lib/utils/config');
 const {httpLogger, logger} = require('./lib/utils/loggers');
+const mongoSetup = require('./lib/utils/mongo');
 const router = require('./lib/routes');
 
 const app = express();
@@ -23,23 +23,7 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Databse setup
-const {serverUri, database} = config.mongo;
-const fullDbUri = `${serverUri}/${database}`;
-const options = {};
-// Todo: add user / pass for production
-// Todo: add promise library
-// @see http://mongoosejs.com/docs/connections.html
-mongoose.connect(fullDbUri, options);
-// Event callbacks
-const db = mongoose.connection;
-db.on('error', (err) => {
-  // Fatal error
-  logger.error(`DATABASE: ${err}`);
-  process.exit(1);
-});
-db.once('open', () => {
-  logger.log('database', `Connection to ${fullDbUri} successful. `)
-});
+mongoSetup();
 
 // Passport + session setup
 app.use(session({
@@ -90,23 +74,22 @@ if (app.get('env') === 'production') {
   });
 } else {
   // Development
-  // Setup webpack so that it rebuild every time a dependency is changed
-  const webpackConfig = require('./webpack.config');
-  const Webpack = require('webpack');
-  const WebpackMiddleware = require('webpack-dev-middleware');
-  const compiler = Webpack(webpackConfig);
-  const wpMidware = WebpackMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    stats: {
-      color: true,
-      hash: false,
-      timings: true,
-      chunks: false,
-      chunkModules: false,
-      modules: false,
+  // Watches for file changes
+  const webpack = require('webpack');
+  const wpConfig = require('./webpack.config');
+  wpConfig.watch = true;
+  wpConfig.watchOptions = {
+    aggregateTimeout: 500,
+    poll: 1000
+  };
+
+  webpack(wpConfig, (err, status) => {
+    if (err || status.hasErrors()) {
+      logger.error(err);
+    } else {
+      logger.info('Rebuilt bundles.');
     }
   });
-  app.use(wpMidware);
 
   // Error handling: Send more explicit errors
   app.use((err, req, res, next) => {
@@ -120,7 +103,6 @@ if (app.get('env') === 'production') {
     next();
   });
 }
-
 
 app.use((req, res) => {
   // if coming from the above error handler, error code will be set in locals
