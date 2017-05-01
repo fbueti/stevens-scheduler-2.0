@@ -13,10 +13,10 @@ class Course {
     this.section = courseData.Section;
     this.title = courseData.Title;
     this.callNumber = courseData.CallNumber;
-    this.minCredit = courseData.MinCredit;
-    this.maxCredit = courseData.MaxCredit;
-    this.maxEnrollment = courseData.MaxEnrollment;
-    this.currentEnrollment = courseData.CurrentEnrollment;
+    this.minCredit = Number(courseData.MinCredit);
+    this.maxCredit = Number(courseData.MaxCredit);
+    this.maxEnrollment = Number(courseData.MaxEnrollment);
+    this.currentEnrollment = Number(courseData.CurrentEnrollment);
     this.status = courseData.Status;
     this.startDate = new Date(courseData.StartDate);
     this.endDate = new Date(courseData.EndDate);

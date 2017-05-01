@@ -14,7 +14,7 @@ import Term from '../models/Term';
 const COURSES_BASE_URL = 'courses';
 
 class CourseService {
-  static getTerms() {
+  static async getTerms() {
     return Vue.http.get(`${COURSES_BASE_URL}/terms`)
         .then((response) => {
           const terms = [];
@@ -29,11 +29,11 @@ class CourseService {
         });
   }
   
-  static getSemesterByCode(termCode) {
+  static async getSemesterByCode(termCode) {
     return CourseService.getSemester({code: termCode, name: ''});
   }
 
-  static getSemester(term) {
+  static async getSemester(term) {
     return Vue.http.get(`${COURSES_BASE_URL}/semester/${term.code}`)
         .then((response) => {
           return new Semester(term, response.body.semester);

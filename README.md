@@ -3,9 +3,6 @@
 
 ## Dev notes
 
-### Before Running
-source ./init-keys.private.sh
-
 ### Logging
 The `lib/utils/loggers` module exports two loggers:
 * httpLogger -> Use for express middleware

@@ -47,7 +47,7 @@ module.exports = {
     shared: path.join(__dirname, 'static', 'js', 'shared.js'),
     splash: path.join(__dirname, 'static', 'js', 'splash.js'),
     edit: path.join(__dirname, 'static', 'js', 'edit.js'),
-    vendor: ['vue', 'vue-resource'],
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -80,7 +80,7 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
-            presets: ['es2015'],
+            presets: ['es2017'],
             sourceMap: true,
           },
         }],

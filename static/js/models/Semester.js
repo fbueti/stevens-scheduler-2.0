@@ -15,6 +15,10 @@ class Semester {
       this.courses.push(new Course(cData));
     }
   }
+
+  static makeEmpty() {
+    return new Semester({}, {$: {}, Course: []});
+  }
 }
 
 export default Semester;
