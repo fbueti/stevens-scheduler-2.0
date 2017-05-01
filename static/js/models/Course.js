@@ -18,8 +18,8 @@ class Course {
     this.maxEnrollment = courseData.MaxEnrollment;
     this.currentEnrollment = courseData.CurrentEnrollment;
     this.status = courseData.Status;
-    this.startDate = courseData.StartDate;
-    this.endDate = courseData.EndDate;
+    this.startDate = new Date(courseData.StartDate);
+    this.endDate = new Date(courseData.EndDate);
     this.instructors = [];
     // Sometimes there are more than one instructor
     // Get 'em all
