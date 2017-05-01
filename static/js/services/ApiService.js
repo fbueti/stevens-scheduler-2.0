@@ -20,7 +20,7 @@ class ApiService {
         })
         .catch((error) => {
           // Todo: Handle error
-        })
+        });
   }
 
   static getScheduleById(id) {
@@ -30,7 +30,7 @@ class ApiService {
         })
         .catch((error) => {
           // Todo: Handle error
-        })
+        });
   }
 
   static deleteSchedule(schedule) {
@@ -40,7 +40,7 @@ class ApiService {
         })
         .catch((error) => {
           // Todo: Handle error
-        })
+        });
   }
 
   static updateSchedule(schedule) {
@@ -50,7 +50,7 @@ class ApiService {
         })
         .catch((error) => {
           // Todo: Handle error
-        })
+        });
   }
 
   static createNewSchedule() {
@@ -60,20 +60,19 @@ class ApiService {
         })
         .catch((error) => {
           // Todo: Handle error
-        })
+        });
   }
 
   // Users
   static deleteUser() {
     return Vue.http.delete(`${USERS_BASE_URL}`)
-        .then((response) => {
+        .then(response =>
           // Successful deletion
-          return response;
-        })
+           response)
         .catch((error) => {
           // Todo: Handle error
           throw error;
-        })
+        });
   }
 }
 

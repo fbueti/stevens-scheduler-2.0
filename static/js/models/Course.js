@@ -17,7 +17,7 @@ class Course {
     // Sometimes there are more than one instructor
     // Get 'em all
     let instructorNum = 1;
-    for(let instructKey = `instructor${instructorNum}`; instructKey in data; instructorNum++) {
+    for (let instructKey = `instructor${instructorNum}`; instructKey in data; instructorNum++) {
       this.instructors.push(data[instructKey]);
     }
     // Term is handled in the Schedule

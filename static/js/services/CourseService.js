@@ -34,7 +34,7 @@ class CourseService {
           // Todo: Parse XML into a Semester object
           console.log(term);
           const courses = [];
-          for (let data of response.body) {
+          for (const data of response.body) {
             courses.push(new Course(data));
           }
           return new Semester(term, null, null, courses);
