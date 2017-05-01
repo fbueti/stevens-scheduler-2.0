@@ -1,14 +1,20 @@
 /**
  * Created by austin on 4/27/17.
  */
+import Course from './Course';
+
 class Semester {
-  constructor(term, numMeetings, numReqs, courses) {
+  constructor(term, data) {
+    const semData = data.$;
+    const coursesData = data.Course;
     this.term = term;
-    this.numMeetings = numMeetings;
-    this.numReqs = numReqs;
+    this.numMeetings = semData.Meetings;
+    this.numReqs = semData.Requirements;
     this.courses = [];
-    for (const courseData of courses) {
-      this.courses.push(new Course(courseData));
+    for (const cData of coursesData) {
+      this.courses.push(new Course(cData));
     }
   }
 }
+
+export default Semester;

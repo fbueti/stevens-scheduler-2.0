@@ -1,8 +1,8 @@
-extends layouts/main
+extends layouts/vue-app
 
-//- do css like this too
 append scripts
-	script(type='javascript' src='/js/components/schedule.js')
-	script(type='javascript' src='/js/home.js')
+	script(type='text/javascript' src='/home.bundle.js')
 
-block content
+block app
+	h1 {{ message }}
+	test

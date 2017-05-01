@@ -1,11 +1,11 @@
-root: true
+root: false
 
 env:
   browser: true
   node: false
 
 extends:
-    "eslint-config-airbnb-es5"
+    "airbnb"
 
 rules:
   vars-on-top: 0

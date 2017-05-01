@@ -1,44 +1,30 @@
 const express = require('express');
 const HttpStatus = require('http-status-codes');
 const path = require('path');
-const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const cors = require('cors');
 const auth = require('./lib/auth');
 const config = require('./lib/utils/config');
 const {httpLogger, logger} = require('./lib/utils/loggers');
+const mongoSetup = require('./lib/utils/mongo');
 const router = require('./lib/routes');
 
 const app = express();
 app.set('env', config.env);
+// Templating engine
+app.set('view engine', 'pug');
 
 // Logging - to stdout in development, to files in production
 app.use(httpLogger);
 
-// Templating engine
-app.set('view engine', 'pug');
-
+app.use(cors());
 // Static directory
-app.use(express.static(path.join(__dirname, 'static')));
+// The dist directory is where webpack builds to
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Databse setup
-const {serverUri, database} = config.mongo;
-const fullDbUri = `${serverUri}/${database}`;
-const options = {};
-// Todo: add user / pass for production
-// Todo: add promise library
-// @see http://mongoosejs.com/docs/connections.html
-mongoose.connect(fullDbUri, options);
-// Event callbacks
-const db = mongoose.connection;
-db.on('error', (err) => {
-  // Fatal error
-  logger.error(`DATABASE: ${err}`);
-  process.exit(1);
-});
-db.once('open', () => {
-  logger.log('database', `Connection to ${fullDbUri} successful. `)
-});
+mongoSetup();
 
 // Passport + session setup
 app.use(session({
@@ -54,7 +40,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Route setup
+
+// Cors setup
 app.use(router);
+
 
 if (app.get('env') === 'production') {
   // @see https://expressjs.com/en/advanced/best-practice-performance.html#in-code
@@ -89,6 +78,22 @@ if (app.get('env') === 'production') {
   });
 } else {
   // Development
+  // Watches for file changes
+  const webpack = require('webpack');
+  const wpConfig = require('./webpack.config');
+  wpConfig.watch = true;
+  wpConfig.watchOptions = {
+    aggregateTimeout: 500,
+    poll: 1000
+  };
+
+  webpack(wpConfig, (err, status) => {
+    if (err || status.hasErrors()) {
+      logger.error(`Webpack build error: ${err}`);
+    } else {
+      logger.info('Rebuilt bundles.');
+    }
+  });
 
   // Error handling: Send more explicit errors
   app.use((err, req, res, next) => {
@@ -102,7 +107,6 @@ if (app.get('env') === 'production') {
     next();
   });
 }
-
 
 app.use((req, res) => {
   // if coming from the above error handler, error code will be set in locals
@@ -126,7 +130,6 @@ app.use((req, res) => {
   // default to plain-text. send()
   res.type('txt').send(errorDescription);
 });
-
 
 function start() {
   app.listen(config.port, () => {

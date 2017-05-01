@@ -3,14 +3,16 @@ html
 	head
 		title Stevens Scheduler
 		block styles
-			link(rel='stylesheet' href='/css/main.css')
+			//- All styles should be loaded in the js file with webpack
 	body
 		if user
 			img(src=user.profile.photoURL)
 			p #{user.profile.displayName}
 			a(href='logout'): button Log out
-		block scripts
-			script(type='javascript' src='/js/main.js')
-			script(type='javascript' src='https://unpkg.com/vue')
-			script(type='javascript' src='https://cdn.jsdelivr.net/vue.resource/1.3.1/vue-resource.min.js')
+
 		block content
+
+		block scripts
+			//- Vendor scripts are common
+			script(type='text/javascript' src='/vendor.bundle.js')
+			//- All page scripts should be loaded the same

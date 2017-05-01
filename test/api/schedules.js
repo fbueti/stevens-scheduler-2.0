@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'testing';
-
 /* eslint-disable no-unused-expressions */
 /* eslint-disable array-callback-return */
 const chai = require('chai');
