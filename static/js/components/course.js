@@ -3,7 +3,7 @@
  */
 
 import Vue from '../VueSetup';
-import'../../scss/components/course.scss';
+import '../../scss/components/course.scss';
 
 Vue.component('course', {
   props: ['course'],

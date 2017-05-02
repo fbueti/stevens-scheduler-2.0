@@ -2,28 +2,32 @@ import Vue from '../VueSetup';
 import '../../scss/components/schedule.scss';
 
 import CourseService from '../services/CourseService';
-import Schedule from '../models/Schedule'
+import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
+import Term from '../models/Term';
 
 // Course component
 import './course';
+
+// We could make this either editable or not,
+//  and show the Semester course selector only if editable
 
 Vue.component('schedule', {
   props: {
     schedule: {
       type: Schedule,
-      required: false
-    }
+      required: false,
+    },
   },
   asyncComputed: {
     semester: {
       async get() {
-        return await CourseService.getSemester({code: '2017F'})
+        return CourseService.getSemester({ code: '2017F' });
       },
-      default () {
+      default() {
         return Semester.makeEmpty();
-      }
-    }
+      },
+    },
   },
   template: '<div class="component-test">' +
   '<p>This is a styled test Schedule!</p>' +

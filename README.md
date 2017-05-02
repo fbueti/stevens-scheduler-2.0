@@ -1,5 +1,6 @@
 
-
+## Notes
+In later version, the client will be migrated to a single page app.
 
 ## Dev notes
 

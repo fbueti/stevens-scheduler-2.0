@@ -30,12 +30,28 @@ import '../scss/home.scss';
 const app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello from Vue!',
-    schedule: null
+    message: 'Schedules',
   },
-  // asyncComputed: {
-  //   async semester() {
-  //     return await CourseService.getSemester({code: '2017F'})
-  //   }
-  // }
+  asyncComputed: {
+    schedules: {
+      async get() {
+        return ApiService.getSchedules();
+      },
+      default() {
+        return [];
+      },
+    },
+  },
+  methods: {
+    createSchedule(event) {
+      // Create a new schedule then add it to the array of schedules
+      ApiService.createNewSchedule().then((schedule) => {
+        this.schedules.push(schedule);
+      });
+    },
+    scheduleDeleted(schedule) {
+      // Remove the deleted schedule from the array
+      this.schedules.splice(this.schedules.indexOf(schedule), 1);
+    },
+  },
 });

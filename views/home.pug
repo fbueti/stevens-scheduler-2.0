@@ -5,5 +5,7 @@ append scripts
 
 block app
 	h1 {{ message }}
-	p {{ schedule }}
-	schedule
+	section#previews
+		template(v-for="schedule in schedules")
+			schedule-preview(:schedule="schedule" v-bind:on-delete="scheduleDeleted")
+		a.new-schedule(v-on:click="createSchedule") New Schedule
