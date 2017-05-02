@@ -6,7 +6,7 @@ const plugins = [
   new webpack.NoEmitOnErrorsPlugin(),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor.bundle.js'
+    filename: 'vendor.bundle.js',
   }),
 ];
 
@@ -18,22 +18,22 @@ if (process.env.NODE_ENV === 'production') {
   // All Production config
   devtool = false;
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true,
-        },
-        sourceMap: false,
-      }),
+    compress: {
+      warnings: false,
+      screw_ie8: true,
+    },
+    sourceMap: false,
+  }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production')
+        'process.env.NODE_ENV': JSON.stringify('production'),
       })
   );
 } else {
   // Development
   const ProgressBarPlugin = require('progress-bar-webpack-plugin');
   plugins.push(new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development')
-      }),
+    'process.env.NODE_ENV': JSON.stringify('development'),
+  }),
       new ProgressBarPlugin()
   );
 }
@@ -52,11 +52,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
-    sourceMapFilename: "[file].map",
+    sourceMapFilename: '[file].map',
     publicPath: '/',
   },
   resolve: {
-    alias: {}
+    alias: {},
   },
   module: {
     rules: [
@@ -69,8 +69,8 @@ module.exports = {
           loader: 'sass-loader',
           options: {
             sourceMap: true,
-          }
-        }]
+          },
+        }],
       },
       {
         test: /\.js$/,

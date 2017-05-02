@@ -13,3 +13,6 @@ rules:
   no-console: 0
   no-restricted-syntax: 0
   arrow-body-style: 0
+  comma-dangle:
+    - 0
+    - functions: 2
