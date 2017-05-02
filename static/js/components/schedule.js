@@ -18,6 +18,11 @@ Vue.component('schedule', {
       type: Schedule,
       required: false,
     },
+    editable: {
+      type: Boolean,
+      require: false,
+      default: true,
+    },
   },
   asyncComputed: {
     semester: {
@@ -29,10 +34,11 @@ Vue.component('schedule', {
       },
     },
   },
-  template: '<div class="component-test">' +
-  '<p>This is a styled test Schedule!</p>' +
-  '<template v-for="course in semester.courses" >' +
-    '<course v-bind:course="course"></course>' +
-  '</template> ' +
-  '</div>',
+  // Show semester course selection only if editable
+  template: `<div class="component-schedule"> 
+  <p>This is a styled test Schedule!</p> 
+  <template v-if="editable" v-for="course in semester.courses" > 
+    <course v-bind:course="course"></course> 
+  </template>  
+  </div>`,
 });

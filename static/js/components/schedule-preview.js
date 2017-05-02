@@ -22,7 +22,7 @@ Vue.component('schedule-preview', {
   <h2>{{schedule.name}}</h2> 
   <p>{{schedule.notes}}</p> 
   <a v-bind:href=" '/schedule/' + schedule.id">Edit</a> 
-  <a v-on:click="deleteSchedule">Delete</a> 
+  <a @click="deleteSchedule">Delete</a> 
   </div>`,
   methods: {
     deleteSchedule() {

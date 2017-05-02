@@ -11,6 +11,10 @@ class Schedule {
     this.name = data.name;
     this.notes = data.notes;
   }
+
+  static makeEmpty() {
+    return new Schedule({ id: '' });
+  }
 }
 
 export default Schedule;

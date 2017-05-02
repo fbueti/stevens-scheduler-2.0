@@ -5,6 +5,7 @@ import './main';
 import Vue from './VueSetup';
 import CourseService from './services/CourseService';
 import ApiService from './services/ApiService';
+import Schedule from './models/Schedule';
 // Components
 import './components/course';
 import './components/schedule-preview';
@@ -31,6 +32,7 @@ const app = new Vue({
   el: '#app',
   data: {
     message: 'Schedules',
+    selectedSchedule: null,
   },
   asyncComputed: {
     schedules: {
@@ -43,15 +45,32 @@ const app = new Vue({
     },
   },
   methods: {
-    createSchedule(event) {
+    createSchedule() {
+      // Click Event
       // Create a new schedule then add it to the array of schedules
       ApiService.createNewSchedule().then((schedule) => {
         this.schedules.push(schedule);
+        // Todo: Should also redirect to the schedule edit page?
       });
     },
     scheduleDeleted(schedule) {
       // Remove the deleted schedule from the array
+      // Also check if it is the selected
+      if (this.selectedSchedule && this.selectedSchedule.id === schedule.id) {
+        this.scheduleDeselect();
+      }
       this.schedules.splice(this.schedules.indexOf(schedule), 1);
+    },
+    scheduleSelect(schedule) {
+      this.selectedSchedule = schedule;
+    },
+    isSelected(schedule) {
+      // If there is a selected schedule, check if the ids match
+      // otherwise always false
+      return this.selectedSchedule ? schedule.id === this.selectedSchedule.id : false;
+    },
+    scheduleDeselect() {
+      this.selectedSchedule = null;
     },
   },
 });
