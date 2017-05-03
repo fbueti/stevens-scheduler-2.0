@@ -6,7 +6,7 @@ import Term from './Term';
 
 class Schedule {
   constructor(data) {
-    this.id = data.id;
+    this.id = data._id || data.id;
     this.courseCodes = data.courses;
     this.termCode = data.termCode;
     this.name = data.name;
