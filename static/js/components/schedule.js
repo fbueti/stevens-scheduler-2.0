@@ -4,7 +4,6 @@ import '../../scss/components/schedule.scss';
 import CourseService from '../services/CourseService';
 import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
-import Term from '../models/Term';
 
 // Course component
 import './course';
