@@ -16,7 +16,7 @@ Vue.component('schedule', {
   props: {
     schedule: {
       type: Schedule,
-      required: false,
+      required: true,
     },
     editable: {
       type: Boolean,
@@ -27,7 +27,11 @@ Vue.component('schedule', {
   asyncComputed: {
     semester: {
       async get() {
-        return CourseService.getSemester({ code: '2017F' });
+        if (this.schedule.termCode) {
+          return CourseService.getSemesterByCode(this.schedule.termCode);
+        }
+        // Empty, no term provided
+        return new Promise((resolve, reject) => resolve([]));
       },
       default() {
         return Semester.makeEmpty();
@@ -37,7 +41,7 @@ Vue.component('schedule', {
   // Show semester course selection only if editable
   template: `<div class="component-schedule"> 
   <p>This is a styled test Schedule!</p> 
-  <template v-if="editable" v-for="course in semester.courses" > 
+  <template v-if="editable" v-for="course in semester.courses"> 
     <course v-bind:course="course"></course> 
   </template>  
   </div>`,

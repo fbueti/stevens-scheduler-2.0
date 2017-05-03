@@ -15,6 +15,7 @@ block app
 		//	To Create a new schedule
 		a.new-schedule(@click="createSchedule") New Schedule
 		//- Show the schedule if
-		article#schedule(v-show="selectedSchedule")
+		article#schedule(v-if="selectedSchedule")
 			button(@click="scheduleDeselect") Close
-			schedule(v-bind:schedule="selectedSchedule" v-bind:editable="false")
+			schedule(v-bind:schedule="selectedSchedule"
+					v-bind:editable="false")
