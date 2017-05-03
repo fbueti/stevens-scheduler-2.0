@@ -24,9 +24,6 @@ app.use(cors());
 // The dist directory is where webpack builds to
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Databse setup
-mongoSetup();
-
 // Passport + session setup
 app.use(session({
   secret: config.session.secret,
@@ -133,6 +130,9 @@ app.use((req, res) => {
 });
 
 function start() {
+  // Databse setup
+  mongoSetup();
+
   app.listen(config.port, () => {
     logger.info(`${config.name} is listening on port ${config.port}`);
   });

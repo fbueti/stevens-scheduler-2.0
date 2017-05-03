@@ -19,7 +19,7 @@ class CourseService {
         .then((response) => {
           const terms = [];
           for (const data of response.body.terms) {
-            terms.push(new Term(data.$))
+            terms.push(new Term(data.$));
           }
           return terms;
         })
@@ -28,16 +28,14 @@ class CourseService {
           throw error;
         });
   }
-  
+
   static async getSemesterByCode(termCode) {
-    return CourseService.getSemester({code: termCode, name: ''});
+    return CourseService.getSemester({ code: termCode, name: '' });
   }
 
   static async getSemester(term) {
     return Vue.http.get(`${COURSES_BASE_URL}/semester/${term.code}`)
-        .then((response) => {
-          return new Semester(term, response.body.semester);
-        })
+        .then(response => new Semester(term, response.body.semester))
         .catch((error) => {
           // Todo: Handle?
           throw error;

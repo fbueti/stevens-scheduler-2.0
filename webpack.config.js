@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const plugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
@@ -8,6 +9,7 @@ const plugins = [
     name: 'vendor',
     filename: 'vendor.bundle.js',
   }),
+  new ProgressBarPlugin(),
 ];
 
 // Configure Production / Development differences
@@ -30,11 +32,9 @@ if (process.env.NODE_ENV === 'production') {
   );
 } else {
   // Development
-  const ProgressBarPlugin = require('progress-bar-webpack-plugin');
   plugins.push(new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
-  }),
-      new ProgressBarPlugin()
+  })
   );
 }
 
@@ -47,7 +47,7 @@ module.exports = {
     shared: path.join(__dirname, 'static', 'js', 'shared.js'),
     splash: path.join(__dirname, 'static', 'js', 'splash.js'),
     edit: path.join(__dirname, 'static', 'js', 'edit.js'),
-    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment'],
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'babel-polyfill'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -80,7 +80,7 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
-            presets: ['es2017'],
+            presets: ['es2015', 'stage-0'],
             sourceMap: true,
           },
         }],

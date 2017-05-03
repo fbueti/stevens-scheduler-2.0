@@ -15,9 +15,7 @@ class ApiService {
   // Schedules
   static getSchedules() {
     return Vue.http.get(SCHEDULES_BASE_URL)
-        .then((response) => {
-          return response.body.map(data => new Schedule(data));
-        })
+        .then(response => response.body.map(data => new Schedule(data)))
         .catch((error) => {
           // Todo: Handle error
           console.error(error);

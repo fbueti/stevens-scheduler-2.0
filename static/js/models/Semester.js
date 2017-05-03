@@ -17,7 +17,7 @@ class Semester {
   }
 
   static makeEmpty() {
-    return new Semester({}, {$: {}, Course: []});
+    return new Semester({}, { $: {}, Course: [] });
   }
 }
 
