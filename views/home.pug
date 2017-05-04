@@ -22,6 +22,7 @@ block app
 				option(v-bind:value="term" v-for="term in terms") {{ term.name }}
 			a.create-schedule(@click="createSchedule") Create Schedule
 			a.cancel-create-schedule(@click="hideAddForm") Cancel
+
 		//- Show the schedule if
 		article#schedule(v-if="selectedSchedule")
 			button(@click="scheduleDeselect") Close

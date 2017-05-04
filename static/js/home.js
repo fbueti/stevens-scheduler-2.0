@@ -53,8 +53,9 @@ const app = new Vue({
       // Click Event
       // Create a new schedule then add it to the array of schedules
 
-      ApiService.createNewSchedule({name: title, notes: notes, termCode: term}).then((schedule) => {
+      ApiService.createNewSchedule({name: this.title, notes: this.notes, termCode: this.term}).then((schedule) => {
         this.schedules.push(schedule);
+        //window.location = "localhost:3000/edit/" + schedule.id;
         // Todo: Should also redirect to the schedule edit page?
       });
     },
