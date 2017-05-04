@@ -19,8 +19,8 @@ const app = new Vue({
   data: {
     message: 'Schedules',
     title: '',
-    description: '',
-    description: '',
+    notes: '',
+    term: '',
     selectedSchedule: null,
     addFormShowing: false,
   },
@@ -46,10 +46,14 @@ const app = new Vue({
     showAddForm() {
       this.addFormShowing = true;
     },
+    hideAddForm() {
+      this.addFormShowing = false;
+    },
     createSchedule() {
       // Click Event
       // Create a new schedule then add it to the array of schedules
-      ApiService.createNewSchedule().then((schedule) => {
+
+      ApiService.createNewSchedule({name: title, notes: notes, termCode: term}).then((schedule) => {
         this.schedules.push(schedule);
         // Todo: Should also redirect to the schedule edit page?
       });
