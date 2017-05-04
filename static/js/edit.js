@@ -9,11 +9,21 @@ import './components/schedule';
 
 // Styles
 import '../scss/edit.scss';
-
+ 
 const app = new Vue({
   el: '#app',
   data: {
-    
+    id: () => {
+		var url = window.location.href;
+		var ind = 0;
+		for(var i = url.length - 1; i >= 0; i--) {
+			if(url.charAt(i) === '/') {
+				ind = i;
+				break;
+			}
+		}
+		return url.substr(i);
+	},
   },
   asyncComputed: {
     
