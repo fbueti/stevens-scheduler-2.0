@@ -14,9 +14,18 @@ block app
 				v-bind:on-delete="scheduleDeleted")
 		//	To Create a new schedule
 		a.new-schedule(@click="showAddForm") New Schedule
+<<<<<<< HEAD
+		form(v-if="addFormShowing")
+			input(v-model="title" placeholder="Title" )
+			input(v-model="description" placeholder="Description" )
+			select(v-model="term" placeholder="Term" )
+				option(v-bind:value="term" v-for="term in terms") {{ term.name }}
+			a.create-schedule(@click="createSchedule") Create Schedule
+=======
 		form(v-if="addFormShowing") Add Form
 
 
+>>>>>>> 2838b1cb582f1bba40cbb208acfb403fd07dec96
 		//- Show the schedule if
 		article#schedule(v-if="selectedSchedule")
 			button(@click="scheduleDeselect") Close
