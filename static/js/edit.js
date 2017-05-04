@@ -13,6 +13,9 @@ import '../scss/edit.scss';
 const app = new Vue({
   el: '#app',
   data: {
+
+  },
+  computed: {
     id() {
       var url = window.location.href;
       var ind = 0;
@@ -22,7 +25,7 @@ const app = new Vue({
           break;
         }
       }
-      return url.substr(i);
+      return url.substr(ind);
     },
   },
   asyncComputed: {
