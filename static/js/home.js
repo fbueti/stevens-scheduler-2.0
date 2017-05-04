@@ -18,6 +18,7 @@ const app = new Vue({
   data: {
     message: 'Schedules',
     selectedSchedule: null,
+    addFormShowing: false,
   },
   asyncComputed: {
     schedules: {
@@ -30,6 +31,9 @@ const app = new Vue({
     },
   },
   methods: {
+    showAddForm() {
+      this.addFormShowing = true;
+    },
     createSchedule() {
       // Click Event
       // Create a new schedule then add it to the array of schedules

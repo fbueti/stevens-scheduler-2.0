@@ -13,7 +13,9 @@ block app
 				v-bind:class="{ selected : isSelected(schedule) }"
 				v-bind:on-delete="scheduleDeleted")
 		//	To Create a new schedule
-		a.new-schedule(@click="createSchedule") New Schedule
+		a.new-schedule(@click="showAddForm") New Schedule
+		form(v-if="addFormShowing") Add Form
+
 		//- Show the schedule if
 		article#schedule(v-if="selectedSchedule")
 			button(@click="scheduleDeselect") Close
