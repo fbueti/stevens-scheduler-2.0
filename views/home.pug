@@ -16,6 +16,7 @@ block app
 		a.new-schedule(@click="showAddForm") New Schedule
 		form(v-if="addFormShowing") Add Form
 
+
 		//- Show the schedule if
 		article#schedule(v-if="selectedSchedule")
 			button(@click="scheduleDeselect") Close

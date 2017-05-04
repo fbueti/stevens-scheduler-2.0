@@ -52,8 +52,8 @@ class ApiService {
         });
   }
 
-  static createNewSchedule() {
-    return Vue.http.post(SCHEDULES_BASE_URL)
+  static createNewSchedule(data = {}) {
+    return Vue.http.post(SCHEDULES_BASE_URL, data)
         .then(response =>
             new Schedule(response.body))
         .catch((error) => {
