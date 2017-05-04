@@ -9,45 +9,49 @@ import './components/schedule';
 
 // Styles
 import '../scss/edit.scss';
- 
+
 const app = new Vue({
   el: '#app',
   data: {
-<<<<<<< HEAD
-    id: () => {
-		var url = window.location.href;
-		var ind = 0;
-		for(var i = url.length - 1; i >= 0; i--) {
-			if(url.charAt(i) === '/') {
-				ind = i;
-				break;
-			}
-		}
-		return url.substr(i);
-	},
-=======
-
->>>>>>> origin/master
+    id() {
+      var url = window.location.href;
+      var ind = 0;
+      for (var i = url.length - 1; i >= 0; i--) {
+        if (url.charAt(i) === '/') {
+          ind = i;
+          break;
+        }
+      }
+      return url.substr(i);
+    },
   },
   asyncComputed: {
     schedule: {
       async get() {
-         return ApiService.getScheduleById(this.id);
+        return ApiService.getScheduleById(this.id);
       },
       default() {
-         return null;
+        return null;
       },
-   },
+    },
   },
   methods: {
-     addCourse() {
+    addCourse() {
 
-     },
-     removeCourse() {
+    },
+    removeCourse() {
 
-     },
-     saveCourse() {
-
-     },
+    },
+    saveSchedule() {
+      ApiService.updateSchedule(this.schedule)
+          .then((updated) => {
+            // Great
+            console.log(updated);
+          })
+          .catch((err) => {
+            // Not Great
+            console.error(err);
+          });
+    },
   },
 });
