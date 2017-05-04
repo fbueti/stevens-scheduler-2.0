@@ -18,7 +18,7 @@ class Schedule {
 	}
 	
 	function removeCourse(course) {
-		this.courseCodes.splice(this.courseCodes.indexOf(course), 1);
+		this.courseCodes.splice(this.courseCodes.indexOf(course.callNumber), 1);
 	}
 	
 	function saveSchedule(course) {
