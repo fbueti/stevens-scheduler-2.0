@@ -5,17 +5,31 @@ import Vue from '../VueSetup';
 import Term from './Term';
 
 class Schedule {
-  constructor(data) {
-    this.id = data._id || data.id;
-    this.courseCodes = data.courses;
-    this.termCode = data.termCode;
-    this.name = data.name;
-    this.notes = data.notes;
-  }
+    constructor(data) {
+        this.id = data._id || data.id;
+        this.courseCodes = data.courses;
+        this.termCode = data.termCode;
+        this.name = data.name;
+        this.notes = data.notes;
+    }
 
-  static makeEmpty() {
-    return new Schedule({ id: '' });
-  }
+	function addCourse(course) {
+		this.courseCodes.push(course.callNumber);
+	}
+	
+	function removeCourse(course) {
+		this.courseCodes.splice(this.courseCodes.indexOf(course), 1);
+	}
+	
+	function saveSchedule(course) {
+		
+	}
+
+    static makeEmpty() {
+        return new Schedule({
+            id: ''
+        });
+    }
 }
 
 export default Schedule;

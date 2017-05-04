@@ -13,22 +13,19 @@ import '../scss/edit.scss';
 const app = new Vue({
   el: '#app',
   data: {
-
-  },
+},
   computed: {
-    id() {
+    id(){
       var url = window.location.href;
-      var ind = 0;
+
       for (var i = url.length - 1; i >= 0; i--) {
         if (url.charAt(i) === '/') {
-          ind = i;
-          break;
-        }
-      }
+
       return url.substr(ind);
-    },
+    }
+  }
   },
-  asyncComputed: {
+    },asyncComputed: {
     schedule: {
       async get() {
         return ApiService.getScheduleById(this.id);
@@ -39,22 +36,22 @@ const app = new Vue({
     },
   },
   methods: {
-    addCourse() {
+    addCourse(course) {
 
-    },
-    removeCourse() {
+            },
+            removeCourse(course) {
 
+            },
+            saveSchedule() {
+                ApiService.updateSchedule(this.schedule)
+                    .then((updated) => {
+                        // Great
+                        console.log(updated);
+                    })
+                    .catch((err) => {
+                        // Not Great
+                        console.error(err);
+                    });
+            },
     },
-    saveSchedule() {
-      ApiService.updateSchedule(this.schedule)
-          .then((updated) => {
-            // Great
-            console.log(updated);
-          })
-          .catch((err) => {
-            // Not Great
-            console.error(err);
-          });
-    },
-  },
 });
