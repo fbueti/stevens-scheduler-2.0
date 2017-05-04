@@ -43,14 +43,22 @@ const app = new Vue({
    }
   },
   methods: {
-     addCourse() {
+      addCourse(course) {
 
-     },
-     removeCourse() {
+      },
+      removeCourse(course) {
 
-     },
-     saveCourse() {
-
-     },
-  },
+      },
+      saveSchedule() {
+         ApiService.updateSchedule(this.schedule)
+         .then((updated) => {
+            // Great
+            console.log(updated);
+         })
+         .catch((err) => {
+            // Not Great
+            console.error(err);
+         });
+      },
+   },
 });
