@@ -4,6 +4,7 @@
 import './main';
 import Vue from './VueSetup';
 import ApiService from './services/ApiService';
+import CourseService from './services/CourseService';
 // Components
 import './components/schedule-preview';
 import './components/schedule';
@@ -17,6 +18,9 @@ const app = new Vue({
   el: '#app',
   data: {
     message: 'Schedules',
+    title: '',
+    description: '',
+    description: '',
     selectedSchedule: null,
     addFormShowing: false,
   },
@@ -24,6 +28,14 @@ const app = new Vue({
     schedules: {
       async get() {
         return ApiService.getSchedules();
+      },
+      default() {
+        return [];
+      },
+    },
+    terms: {
+      async get() {
+        return CourseService.getTerms();
       },
       default() {
         return [];
