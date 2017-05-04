@@ -2,14 +2,16 @@
  * Created by austin on 4/30/17.
  */
 import './main';
+import Semester from './models/Semester';
 import Vue from './VueSetup';
 import ApiService from './services/ApiService';
+import CourseService from './services/CourseService';
 // Components
 import './components/schedule';
 
 // Styles
 import '../scss/edit.scss';
- 
+
 const app = new Vue({
   el: '#app',
   data: {
@@ -31,6 +33,14 @@ const app = new Vue({
          return null;
       },
    },
+   semester: {
+      async get() {
+         return CourseService.getSemesterByCode(this.schedule.termCode);
+      }
+      default() {
+         return Semester.makeEmpty();
+      },
+   }
   },
   methods: {
      addCourse() {
