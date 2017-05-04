@@ -13,6 +13,7 @@ import '../scss/edit.scss';
 const app = new Vue({
   el: '#app',
   data: {
+<<<<<<< HEAD
     id: () => {
 		var url = window.location.href;
 		var ind = 0;
@@ -24,11 +25,29 @@ const app = new Vue({
 		}
 		return url.substr(i);
 	},
+=======
+
+>>>>>>> origin/master
   },
   asyncComputed: {
-    
+    schedule: {
+      async get() {
+         return ApiService.getScheduleById(this.id);
+      },
+      default() {
+         return null;
+      },
+   },
   },
   methods: {
-    
+     addCourse() {
+
+     },
+     removeCourse() {
+
+     },
+     saveCourse() {
+
+     },
   },
 });
