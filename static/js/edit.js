@@ -3,6 +3,7 @@
  */
 import './main';
 import Semester from './models/Semester';
+import Schedule from './models/Schedule';
 import Vue from './VueSetup';
 import ApiService from './services/ApiService';
 import CourseService from './services/CourseService';
@@ -12,58 +13,60 @@ import './components/schedule';
 // Styles
 import '../scss/edit.scss';
 
+function stripId() {
+  const url = window.location.href;
+  let idString;
+  for (let i = url.length - 1; i >= 0; i--) {
+    if (url.charAt(i) === '/') {
+      idString = url.substr(i + 1);
+      break;
+    }
+  }
+  return idString;
+}
+
 const app = new Vue({
   el: '#app',
-  data: {},
+  data() {
+    return {
+      id: stripId(),
+      semesterLoaded: false,
+    };
+  },
   computed: {
-    id() {
-      const url = window.location.href;
-      for (let i = url.length - 1; i >= 0; i--) {
-        if (url.charAt(i) === '/') {
-          return url.substr(i + 1);
-        }
-      }
+    scheduleLoaded() {
+      return (this.schedule && this.schedule.termCode !== undefined);
     },
   },
   asyncComputed: {
     schedule: {
-      async get() {
-        console.log(this.id);
-        return ApiService.getScheduleById(this.id);
-      },
-    },
-    semester: {
-      async get() {
-        console.log(this.schedule);
-        const schedule = await ApiService.getScheduleById(this.id);
-        console.log(this.schedule);
-        console.log("SCHEDULE STUFF");
-        console.log(this.schedule.id);
-        console.log(this.schedule.courses);
-        return CourseService.getSemesterByCode(schedule.termCode);
+      get() {
+        console.log('Loading schedule!');
+        return ApiService.getScheduleById(this.id)
+            .then((schedule) => {
+              console.log('Loaded schedule!');
+              this.scheduleLoaded = true;
+              return schedule;
+            });
       },
       default() {
-        return Semester.makeEmpty();
+        return null;
       },
+      // semester: {
+      //   get() {
+      //     console.log('Loading semester!');
+      //     const schedule = this.schedule;
+      //     console.log(schedule);
+      //     return CourseService.getSemesterByCode(schedule.termCode)
+      //         .then((semester) => {
+      //           console.log('Loaded semester!');
+      //           this.semesterLoaded = true;
+      //           return semester;
+      //         });
+      //   },
+      // },
     },
+
   },
-  methods: {
-    addCourse(course) {
-      this.schedule.removeCourse(course);
-    },
-    removeCourse(course) {
-      this.schedule.removeCourse(course);
-    },
-    saveSchedule() {
-      ApiService.updateSchedule(this.schedule)
-          .then((updated) => {
-            // Great
-            console.log(updated);
-          })
-          .catch((err) => {
-            // Not Great
-            console.error(err);
-          });
-    },
-  },
+  methods: {},
 });

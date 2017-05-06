@@ -52,12 +52,11 @@ const app = new Vue({
     createSchedule() {
       // Click Event
       // Create a new schedule then add it to the array of schedules
-
-      ApiService.createNewSchedule({name: this.title, notes: this.notes, termCode: this.term}).then((schedule) => {
-        this.schedules.push(schedule);
-        //window.location = "localhost:3000/edit/" + schedule.id;
-        // Todo: Should also redirect to the schedule edit page?
-      });
+      ApiService.createNewSchedule({ name: this.title, notes: this.notes, termCode: this.term.code })
+          .then((schedule) => {
+            // this.schedules.push(schedule);
+            window.location = `http://localhost:3000/edit/${schedule.id}`;
+          });
     },
     scheduleDeleted(schedule) {
       // Remove the deleted schedule from the array

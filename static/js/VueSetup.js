@@ -12,7 +12,6 @@ Vue.http.options.xhr = { withCredentials: true };
 Vue.http.options.root = '/api';
 
 Vue.use(AsyncComputed);
-
 Vue.use(VueMoment);
 
 export default Vue;

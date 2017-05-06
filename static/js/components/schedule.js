@@ -25,22 +25,32 @@ Vue.component('schedule', {
     },
   },
   data() {
-    return { coursePreviews: [] };
+    return {
+      coursePreviews: [],
+      semesterLoaded: false,
+    };
   },
   computed: {
     scheduleCourses() {
       // Map over the courses in the semester, pulling by course.callNumber == courseCode
       return this.semester.courses.filter(course => this.schedule.hasCourse(course.callNumber));
     },
+    loaded() {
+      return (this.semester && this.semesterLoaded);
+    },
   },
   asyncComputed: {
     semester: {
-      async get() {
-        await this.schedule;
-        return CourseService.getSemesterByCode(this.schedule.termCode);
+      get() {
+        console.log(this.schedule);
+        return CourseService.getSemesterByCode(this.schedule.termCode)
+            .then((semester) => {
+              this.semesterLoaded = true;
+              return semester;
+            });
       },
       default() {
-        return null;
+        return Semester.makeEmpty();
       },
     },
   },
@@ -72,10 +82,11 @@ Vue.component('schedule', {
   },
   // Show semester course selection only if editable
   template: `<div class="component-schedule"> 
-    <div class="loading">
+    <div class="loading" v-if="!loaded">
     Loading!
-</div>
-    <div class="loaded">
+    </div>
+    <div class="loaded" v-else>
+    Loaded!
     <section  v-if="editable">
    <button @click="saveSchedule" class="btn-save-schedule">Save</button>
     <input class="course-search" type="text">
