@@ -1,4 +1,4 @@
-require('dotenv').config({path: './keys.private.env'}); // Setup environment
+require('dotenv').config({ path: './keys.private.env' }); // Setup environment
 const express = require('express');
 const HttpStatus = require('http-status-codes');
 const path = require('path');
@@ -7,7 +7,7 @@ const session = require('express-session');
 const cors = require('cors');
 const auth = require('./lib/auth');
 const config = require('./lib/utils/config');
-const {httpLogger, logger} = require('./lib/utils/loggers');
+const { httpLogger, logger } = require('./lib/utils/loggers');
 const mongoSetup = require('./lib/utils/mongo');
 const router = require('./lib/routes');
 
@@ -30,7 +30,7 @@ app.use(session({
   saveUninitialized: true,
   resave: false
 }));
-const {strategy, deserializeUser, serializeUser} = auth;
+const { strategy, deserializeUser, serializeUser } = auth;
 passport.use(strategy);
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -70,26 +70,34 @@ if (app.get('env') === 'production') {
     logger.error(`ERROR CODE ${status}: ${explicitDescription}`);
 
     // Pass less descriptive error along in the locals
-    res.locals.errorCode = errorCode;
+    res.locals.errorCode = status;
     res.locals.errorDescription = description;
     next();
   });
 } else {
   // Development
   // Watches for file changes
-  const webpack = require('webpack');
+  const webpack = require('webpack'); // eslint-disable-line
   const wpConfig = require('./webpack.config');
   wpConfig.watch = true;
   wpConfig.watchOptions = {
     aggregateTimeout: 500,
-    poll: 1000
+    poll: 500
   };
 
-  webpack(wpConfig, (err, status) => {
-    if (err || status.hasErrors()) {
-      logger.error(`Webpack build error: ${err}`);
+  webpack(wpConfig, (err, stats) => {
+    if (err) {
+      logger.error(`Webpack build error: ${err.stack || err}`);
     } else {
       logger.info('Rebuilt bundles.');
+      const statsInfo = stats.toJson();
+      if (stats.hasErrors()) {
+        logger.error(`Webpack build errors: ${statsInfo.errors}`);
+      }
+      if (stats.hasWarnings()) {
+        logger.error(`Webpack build warnings: ${statsInfo.warnings}`);
+      }
+      logger.info(`Build took: ${statsInfo.time}ms`);
     }
   });
 
@@ -100,8 +108,8 @@ if (app.get('env') === 'production') {
     logger.error(`ERROR CODE ${status}: ${description}`);
 
     // Pass error along
-    res.locals.errorCode = status; // eslint-disable-line
-    res.locals.errorDescription = description; // eslint-disable-line
+    res.locals.errorCode = status;
+    res.locals.errorDescription = description;
     next();
   });
 }
@@ -115,13 +123,13 @@ app.use((req, res) => {
 
   // respond with html page
   if (req.accepts('html')) {
-    res.render('error', {title: 'Error', errorCode, errorDescription});
+    res.render('error', { title: 'Error', errorCode, errorDescription });
     return;
   }
 
   // respond with json
   if (req.accepts('json')) {
-    res.json({errorDescription});
+    res.json({ errorDescription });
     return;
   }
 

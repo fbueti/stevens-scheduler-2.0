@@ -1,6 +1,7 @@
 import Vue from '../VueSetup';
 import '../../scss/components/schedule.scss';
 
+import ApiService from '../services/ApiService';
 import CourseService from '../services/CourseService';
 import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
@@ -23,25 +24,73 @@ Vue.component('schedule', {
       default: true,
     },
   },
+  data() {
+    return { coursePreviews: [] };
+  },
+  computed: {
+    scheduleCourses() {
+      // Map over the courses in the semester, pulling by course.callNumber == courseCode
+      return this.semester.courses.filter(course => this.schedule.hasCourse(course.callNumber));
+    },
+  },
   asyncComputed: {
     semester: {
       async get() {
-        if (this.schedule.termCode) {
-          return CourseService.getSemesterByCode(this.schedule.termCode);
-        }
-        // Empty, no term provided
-        return new Promise((resolve, reject) => resolve([]));
+        await this.schedule;
+        return CourseService.getSemesterByCode(this.schedule.termCode);
       },
       default() {
-        return Semester.makeEmpty();
+        return null;
       },
+    },
+  },
+  methods: {
+    addCourse(course) {
+      this.schedule.addCourse(course);
+    },
+    removeCourse(course) {
+      this.schedule.removeCourse(course);
+    },
+    previewCourse(course) {
+      // Show the course on the schedule-view but don't add it
+      this.coursePreviews.push(course);
+    },
+    removePreview(course) {
+      this.coursePreviews.splice(this.coursePreviews.indexOf(course), 1);
+    },
+    saveSchedule() {
+      ApiService.updateSchedule(this.schedule)
+          .then((updated) => {
+            // Great
+            console.log(updated);
+          })
+          .catch((err) => {
+            // Not Great
+            console.error(err);
+          });
     },
   },
   // Show semester course selection only if editable
   template: `<div class="component-schedule"> 
-  <p>This is a styled test Schedule!</p> 
-  <template v-if="editable" v-for="course in semester.courses"> 
-    <course v-bind:course="course"></course> 
-  </template>  
+    <div class="loading">
+    Loading!
+</div>
+    <div class="loaded">
+    <section  v-if="editable">
+   <button @click="saveSchedule" class="btn-save-schedule">Save</button>
+    <input class="course-search" type="text">
+    <article class="course-selector">
+        <div @click="previewCourse(course)" v-for="course in semester.courses" :key="course.callNumber"> 
+        {{course.title}} {{course.section}} 
+        </div>
+    </article>
+  </section>  
+  
+  <section class="schedule-view">
+    <course  v-for="course in scheduleCourses" :key="course.callNumber"></course>
+    <course class="preview" v-for="course in coursePreviews" :key="course.callNumber"></course>
+    
+  </section>
+</div>
   </div>`,
 });
