@@ -53,7 +53,8 @@ module.exports = {
     splash: path.join(__dirname, 'static', 'js', 'splash.js'),
     edit: path.join(__dirname, 'static', 'js', 'edit.js'),
     polyfills: ['babel-polyfill'],
-    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-async-data-2', 'vue-moment'],
+    // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'lodash'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
