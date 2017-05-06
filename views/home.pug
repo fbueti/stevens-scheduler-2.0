@@ -5,7 +5,6 @@ append scripts
 
 block app
 	// Let's think about moving all this to a home component in home.js
-	h1 {{ message }}
 	section#previews
 		template(v-for="schedule in schedules")
 			schedule-preview(@click.native="scheduleSelect(schedule)"
@@ -13,15 +12,15 @@ block app
 				v-bind:class="{ selected : isSelected(schedule) }"
 				v-bind:on-delete="scheduleDeleted")
 		//	To Create a new schedule
-		a.new-schedule(@click="showAddForm") New Schedule
+		button.btn-new-schedule(@click="showAddForm") New Schedule
 
 		form(v-if="addFormShowing")
 			input(v-model="title" placeholder="Title" )
 			input(v-model="notes" placeholder="Description" )
 			select(v-model="term" placeholder="Term" )
 				option(v-bind:value="term" v-for="term in terms") {{ term.name }}
-			a.create-schedule(@click="createSchedule") Create Schedule
-			a.cancel-create-schedule(@click="hideAddForm") Cancel
+			button.btn-create-schedule(@click="createSchedule") Create Schedule
+			button.btn-cancel-create-schedule(@click="hideAddForm") Cancel
 
 		//- Show the schedule if
 		article#schedule(v-if="selectedSchedule")

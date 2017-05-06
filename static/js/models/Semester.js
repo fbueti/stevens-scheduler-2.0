@@ -8,8 +8,8 @@ class Semester {
     const semData = data.$;
     const coursesData = data.Course;
     this.term = term;
-    this.numMeetings = semData.Meetings;
-    this.numReqs = semData.Requirements;
+    this.numMeetings = Number(semData.Meetings);
+    this.numReqs = Number(semData.Requirements);
     this.courses = [];
     for (const cData of coursesData) {
       this.courses.push(new Course(cData));

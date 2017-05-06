@@ -35,6 +35,7 @@ class ApiService {
 
   static deleteSchedule(schedule) {
     return Vue.http.delete(`${SCHEDULES_BASE_URL}/${schedule.id}`)
+        .then(() => {}) // Todo: could expose more
         .catch((error) => {
           // Todo: Handle error
           console.error(error);
@@ -43,8 +44,9 @@ class ApiService {
   }
 
   static updateSchedule(schedule) {
-    return Vue.http.put(`${SCHEDULES_BASE_URL}/${schedule.id}`)
-        .then(response => new Schedule(response.body))
+    // No response data on success
+    return Vue.http.put(`${SCHEDULES_BASE_URL}/${schedule.id}`, schedule)
+        .then(() => {}) // Todo: could expose more
         .catch((error) => {
           // Todo: Handle error
           console.error(error);

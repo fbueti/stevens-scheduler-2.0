@@ -7,7 +7,7 @@ import '../../scss/components/course.scss';
 
 Vue.component('course', {
   props: ['course'],
-  template: '<div class="course">' +
+  template: '<div class="component-course">' +
   '<h3>{{course.title}}</h3>' +
   '<h4>{{course.section}}</h4>' +
   '<p>Call Number: {{course.callNumber}}</p>' +

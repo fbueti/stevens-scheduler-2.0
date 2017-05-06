@@ -13,6 +13,7 @@ Vue.component('schedule-preview', {
       type: Schedule,
       required: true,
     },
+    // Function that takes the deleted schedule
     onDelete: {
       type: Function,
       required: false,
@@ -21,7 +22,7 @@ Vue.component('schedule-preview', {
   template: `<div class="component-schedule-preview"> 
   <h2>{{schedule.name}}</h2> 
   <p>{{schedule.notes}}</p> 
-  <a v-bind:href=" '/schedule/' + schedule.id">Edit</a> 
+  <a v-bind:href=" '/edit/' + schedule.id">Edit</a> 
   <a @click="deleteSchedule">Delete</a> 
   </div>`,
   methods: {

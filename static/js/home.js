@@ -17,7 +17,6 @@ import '../scss/home.scss';
 const app = new Vue({
   el: '#app',
   data: {
-    message: 'Schedules',
     title: '',
     notes: '',
     term: '',
