@@ -6,7 +6,10 @@ html
 			//- All styles should be loaded in the js file with webpack
 	body
 		if user
-			img(src=user.profile.photoURL)
+			if user.profile.photoURL
+				img(src=user.profile.photoURL)
+			else
+				img(src='https://lh4.googleusercontent.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAACyas/yR1_yhwBcBA/photo.jpg?sz=50')
 			p #{user.profile.displayName}
 			a(href='logout'): button Log out
 
@@ -15,4 +18,5 @@ html
 		block scripts
 			//- Vendor scripts are common
 			script(type='text/javascript' src='/vendor.bundle.js')
-			//- All page scripts should be loaded the same
+			script(type='text/javascript' src='/polyfills.bundle.js')
+			//- All page scripts should be loaded here with append

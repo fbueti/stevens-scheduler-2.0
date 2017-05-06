@@ -13,9 +13,10 @@ const plugins = [
 ];
 
 // Configure Production / Development differences
-
+// Todo: Split into separate file
 // Slow but project is small
 let devtool = 'source-map';
+let filenameFormat;
 if (process.env.NODE_ENV === 'production') {
   // All Production config
   devtool = false;
@@ -30,12 +31,16 @@ if (process.env.NODE_ENV === 'production') {
         'process.env.NODE_ENV': JSON.stringify('production'),
       })
   );
+  // Todo: better static resource serving
+  // filenameFormat = '[name].[hash].bundle.js';
+  filenameFormat = '[name].bundle.js';
 } else {
   // Development
   plugins.push(new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
   })
   );
+  filenameFormat = '[name].bundle.js';
 }
 
 module.exports = {
@@ -47,11 +52,12 @@ module.exports = {
     shared: path.join(__dirname, 'static', 'js', 'shared.js'),
     splash: path.join(__dirname, 'static', 'js', 'splash.js'),
     edit: path.join(__dirname, 'static', 'js', 'edit.js'),
-    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'babel-polyfill'],
+    polyfills: ['babel-polyfill'],
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-async-data-2', 'vue-moment'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: filenameFormat,
     sourceMapFilename: '[file].map',
     publicPath: '/',
   },
@@ -73,7 +79,7 @@ module.exports = {
         }],
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: [
           path.resolve(__dirname, 'node_modules'),
         ],

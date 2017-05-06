@@ -4,4 +4,9 @@ append scripts
 	script(type='text/javascript' src='/edit.bundle.js')
 
 block app
+	//- An editable schedule view
+	div(v-if="scheduleLoaded")
+		input#name(:placeholder="schedule.name" v-model="schedule.name")
+		input#notes(:placeholder="schedule.notes")
+		schedule(v-bind:schedule="schedule" v-bind:editable="true")
 

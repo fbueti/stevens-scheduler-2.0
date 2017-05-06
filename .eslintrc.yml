@@ -16,3 +16,4 @@ rules:
   comma-dangle:
     - 0
     - functions: 2
+  global-require: 1
