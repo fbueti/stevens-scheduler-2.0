@@ -21,6 +21,13 @@ class Course {
     this.startDate = new Date(courseData.StartDate);
     this.endDate = new Date(courseData.EndDate);
     this.instructors = [];
+
+    this.isFull = this.currentEnrollment === this.maxEnrollment;
+
+    // Store common search terms in lower case so we don't have to calculate every time
+    this.titleLower = this.title.toLowerCase();
+    this.sectionLower = this.section.toLowerCase();
+
     // Sometimes there are more than one instructor
     // Get 'em all
     let instructorNum = 1;
@@ -42,6 +49,15 @@ class Course {
         this.requirements.push(new Requirement(rData));
       }
     }
+  }
+
+  quickContains(query) {
+    return this.sectionLower.search(query) > -1;
+  }
+
+  contains(query) {
+    // Todo: allow for custom searching by passed list of keys
+    return this.sectionLower.search(query) > -1 || this.titleLower.search(query) > -1;
   }
 }
 

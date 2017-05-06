@@ -54,7 +54,7 @@ module.exports = {
     edit: path.join(__dirname, 'static', 'js', 'edit.js'),
     polyfills: ['babel-polyfill'],
     // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
-    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'lodash'],
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'lodash.throttle', 'lodash.debounce'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
