@@ -2,16 +2,16 @@
  * Created by austin on 4/30/17.
  */
 import './main';
-import Vue from './VueSetup';
-import ApiService from './services/ApiService';
-import CourseService from './services/CourseService';
-import { redirect } from './utils';
+import Vue from '../VueSetup';
+import ApiService from '../services/ApiService';
+import CourseService from '../services/CourseService';
+import { redirect } from '../utils';
 // Components
-import './components/schedule-preview';
-import './components/schedule';
+import '../components/schedule-preview';
+import '../components/schedule';
 
 // Styles
-import '../scss/home.scss';
+import '../../scss/home.scss';
 
 // Setup app
 

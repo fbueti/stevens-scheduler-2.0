@@ -47,11 +47,11 @@ module.exports = {
   devtool,
   plugins,
   entry: {
-    error: path.join(__dirname, 'static', 'js', 'error.js'),
-    home: path.join(__dirname, 'static', 'js', 'home.js'),
-    shared: path.join(__dirname, 'static', 'js', 'shared.js'),
-    splash: path.join(__dirname, 'static', 'js', 'splash.js'),
-    edit: path.join(__dirname, 'static', 'js', 'edit.js'),
+    error: path.join(__dirname, 'static', 'js', 'apps', 'error.js'),
+    home: path.join(__dirname, 'static', 'js', 'apps', 'home.js'),
+    shared: path.join(__dirname, 'static', 'js', 'apps', 'shared.js'),
+    splash: path.join(__dirname, 'static', 'js', 'apps', 'splash.js'),
+    edit: path.join(__dirname, 'static', 'js', 'apps', 'edit.js'),
     polyfills: ['babel-polyfill'],
     // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
     vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'lodash.throttle', 'lodash.debounce'],

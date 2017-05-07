@@ -60,12 +60,16 @@ class Course {
         && showClosed ? true : this.isClosed;
   }
 
+  regexContains(query, showClosed = false) {
+    // Todo!
+  }
+
   sectionContains(query) {
-    return this.sectionLower.search(query) > -1;
+    return this.sectionLower.indexOf(query) > -1;
   }
 
   titleContains(query) {
-    return this.titleLower.search(query) > -1;
+    return this.titleLower.indexOf(query) > -1;
   }
 }
 

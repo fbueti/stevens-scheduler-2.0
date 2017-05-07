@@ -1,8 +1,8 @@
 /**
  * Created by austin on 4/27/17.
  */
-import Vue from '../VueSetup';
-import Term from './Term';
+import { getQueryParams } from '../utils';
+
 
 class Schedule {
   constructor(data) {
@@ -29,9 +29,32 @@ class Schedule {
     return this.courseCodes.indexOf(course.callNumber) !== -1;
   }
 
+  /**
+   * Turn the schedule into a URL hash. Not quite to spec w/ array.
+   * Save everything but the id
+   * @return {string}
+   */
+  hash() {
+    return `termCode='${this.termCode}
+    &courseCodes=${this.courseCodes.join(',')}
+    &name=${this.name}&notes=${this.notes}`;
+  }
+
+  /**
+   *
+   * @param hash
+   */
+  static makeFromHash(hash) {
+    const params = getQueryParams(hash);
+    // Make the course codes an array
+    params.courseCodes = params.courseCodes ? params.courseCodes.split(',') : [];
+    return new Schedule(params);
+  }
+
   static makeEmpty() {
     return new Schedule({
       id: '',
+      termCode: '',
     });
   }
 }

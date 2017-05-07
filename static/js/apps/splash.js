@@ -3,5 +3,7 @@
  */
 import './main';
 import Vue from '../VueSetup';
-import CourseService from '../services/CourseService';
+
+
+// Styles
 import '../../scss/splash.scss';

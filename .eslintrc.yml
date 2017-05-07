@@ -17,6 +17,7 @@ rules:
     - 0
     - functions: 2
   global-require: 1
+  no-param-reassign: 1
 
 plugins:
   - disable

@@ -2,14 +2,14 @@
  * Created by austin on 4/30/17.
  */
 import './main';
-import Vue from './VueSetup';
-import ApiService from './services/ApiService';
-import { redirect } from './utils';
+import Vue from '../VueSetup';
+import ApiService from '../services/ApiService';
+import { redirect } from '../utils';
 // Components
-import './components/schedule';
+import '../components/schedule';
 
 // Styles
-import '../scss/edit.scss';
+import '../../scss/edit.scss';
 
 function stripId() {
   const url = window.location.href;
