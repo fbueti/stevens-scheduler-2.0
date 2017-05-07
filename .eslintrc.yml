@@ -17,3 +17,13 @@ rules:
     - 0
     - functions: 2
   global-require: 1
+
+plugins:
+  - disable
+  - vue
+
+settings:
+  eslint-plugin-disable:
+    paths:
+      react:
+        - "static/js/**/*.jsx"
