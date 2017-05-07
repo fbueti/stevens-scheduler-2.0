@@ -1,18 +1,21 @@
 /**
  * Created by FRAN
  */
+/* eslint-plugin-disable react */
 
 import Vue from '../VueSetup';
 import '../../scss/components/course.scss';
 
+// Written using the Vue-jsx loader style
 Vue.component('course', {
   props: ['course'],
-  template: '<div class="component-course">' +
-  '<h3>{{course.title}}</h3>' +
-  '<h4>{{course.section}}</h4>' +
-  '<p>Call Number: {{course.callNumber}}</p>' +
-  '<p>Spots Left: {{course.maxEnrollment - course.currentEnrollment}}</p>' +
-  // '<p>Start: {{course.startDate | moment("dd H:mm")}}</p>' +
-  '<p v-for="meeting in course.meetings">{{meeting.activity}}</p>' +
-  '</div>',
+  render() {
+    return (<div class="component-course">
+      <h3>{ this.course.title }</h3>
+      <h4> { this.course.section }</h4>
+      <p>Call Number: { this.course.callNumber }</p>
+      <p>Spots Left: { this.course.maxEnrollment - this.course.currentEnrollment }</p>
+      { this.course.meetings.map(meeting => <p> { meeting.activity }</p>) }
+    </div>);
+  },
 });

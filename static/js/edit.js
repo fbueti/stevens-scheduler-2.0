@@ -2,11 +2,9 @@
  * Created by austin on 4/30/17.
  */
 import './main';
-import Semester from './models/Semester';
-import Schedule from './models/Schedule';
 import Vue from './VueSetup';
 import ApiService from './services/ApiService';
-import CourseService from './services/CourseService';
+import { redirect } from './utils';
 // Components
 import './components/schedule';
 
@@ -47,6 +45,12 @@ const app = new Vue({
               console.log('Loaded schedule!');
               this.scheduleLoaded = true;
               return schedule;
+            })
+            .catch(error => {
+              // Couldn't find the schedule
+              console.error(error);
+              // Redirect to the error page
+              redirect('not-found');
             });
       },
       default() {

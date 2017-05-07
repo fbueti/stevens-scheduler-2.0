@@ -14,12 +14,13 @@ block app
 		//	To Create a new schedule
 		button.btn-new-schedule(@click="showAddForm") New Schedule
 
-		form(v-if="addFormShowing")
-			input(v-model="title" placeholder="Title" )
-			input(v-model="notes" placeholder="Description" )
-			select(v-model="term" placeholder="Term" )
+		form(v-if="addFormShowing" v-on:submit.prevent="createSchedule")
+			input(v-model="title" placeholder="Title" required)
+			input(v-model="notes" placeholder="Description")
+			select(v-model="term" required)
+				option(value="") Select Term
 				option(v-bind:value="term" v-for="term in terms") {{ term.name }}
-			button.btn-create-schedule(@click="createSchedule") Create Schedule
+			button.btn-create-schedule(type="submit") Create Schedule
 			button.btn-cancel-create-schedule(@click="hideAddForm") Cancel
 
 		//- Show the schedule if

@@ -5,6 +5,7 @@ import './main';
 import Vue from './VueSetup';
 import ApiService from './services/ApiService';
 import CourseService from './services/CourseService';
+import { redirect } from './utils';
 // Components
 import './components/schedule-preview';
 import './components/schedule';
@@ -49,15 +50,14 @@ const app = new Vue({
       this.addFormShowing = false;
     },
     createSchedule() {
-      // Click Event
       // Create a new schedule then add it to the array of schedules
       ApiService.createNewSchedule({
-        name: this.title, notes: this.notes, termCode: this.term.code
+        name: this.title, notes: this.notes, termCode: this.term.code,
       })
-          .then((schedule) => {
-            // this.schedules.push(schedule);
-            window.location.href = `http://${window.location.hostname}/edit/${schedule.id}`;
-          });
+      .then((schedule) => {
+        // this.schedules.push(schedule);
+        redirect(`/edit/${schedule.id}`);
+      });
     },
     scheduleDeleted(schedule) {
       // Remove the deleted schedule from the array

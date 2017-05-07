@@ -1,14 +1,13 @@
 import debounce from 'lodash.debounce';
 import throttle from 'lodash.throttle';
 import Vue from '../VueSetup';
-import { fuzzyContains } from '../utils';
 import ApiService from '../services/ApiService';
 import CourseService from '../services/CourseService';
 import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
 
 // Components
-import './course';
+import './course.jsx';
 import './spinner';
 
 // Styles
@@ -46,11 +45,16 @@ Vue.component('schedule', {
     loaded() {
       return (this.semester && this.semesterLoaded);
     },
+    totalCredits() {
+      return this.scheduleCourses.reduce(
+          (total, course) => total + course.maxCredit,
+          0);
+    }
   },
   asyncComputed: {
     semester: {
       get() {
-        console.log(this.schedule);
+        this.semesterLoaded = false;
         return CourseService.getSemesterByCode(this.schedule.termCode)
             .then((semester) => {
               this.semesterLoaded = true;
@@ -78,18 +82,22 @@ Vue.component('schedule', {
       // Update the list of filtered Courses
       return this.semester.courses.filter(
           course =>
-          course.quickContains(this.courseQuery.toLowerCase(), this.showClosed));
+              course.quickContains(this.courseQuery.toLowerCase(), this.showClosed));
     }, 250),
+    // EDITING functions
     // These are here if we want to do more explicit add/remove than dblclick
     addCourse(course) {
+      if (!this.editable) return;
       this.schedule.addCourse(course);
       this.scheduleCourses.push(course);
     },
     removeCourse(course) {
+      if (!this.editable) return;
       this.schedule.removeCourse(course);
       this.scheduleCourses.splice(this.scheduleCourses.indexOf(course), 1);
     },
     toggleCourse(course) {
+      if (!this.editable) return;
       if (this.schedule.hasCourse(course)) {
         this.removeCourse(course);
       } else {
@@ -122,7 +130,7 @@ Vue.component('schedule', {
         <spinner name="cube-grid"></spinner>
     </div>
     <div class="loaded" v-else>
-      <section  v-if="editable">
+      <section  v-if="editable" class="semester-courses">
           <input id="name" :value="schedule.name" v-model="schedule.name"/>
           <input id="notes" :value="schedule.notes" v-model="schedule.notes"/>
           <input class="course-search" type="text" placeholder="Search courses" v-model="courseQuery">
@@ -136,6 +144,10 @@ Vue.component('schedule', {
           <label for="closedCheckbox">Show closed?</label>
           <input id="closedCheckbox" type="checkbox" v-model="showClosed">
       </section>  
+    
+      <section class="schedule-info">
+        <p> Credits: {{ totalCredits }}</p>
+      </section>
     
       <section class="schedule-view">
         <course  v-for="course in scheduleCourses" :key="course.callNumber" :course="course"

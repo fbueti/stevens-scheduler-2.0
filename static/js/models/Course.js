@@ -3,7 +3,6 @@
  */
 import Meeting from './Meeting';
 import Requirement from './Requirement';
-import { fuzzyContains } from '../utils';
 
 class Course {
   constructor(data) {
@@ -54,7 +53,7 @@ class Course {
     }
   }
 
-  // Composable fuzzyContains functions
+  // Composable contains functions
   quickContains(query, showClosed = false) {
     return this.sectionContains(query)
         && this.titleContains(query)
