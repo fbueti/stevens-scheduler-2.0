@@ -3,6 +3,7 @@
  */
 import Meeting from './Meeting';
 import Requirement from './Requirement';
+import { fuzzyContains } from '../utils';
 
 class Course {
   constructor(data) {
@@ -17,12 +18,13 @@ class Course {
     this.maxCredit = Number(courseData.MaxCredit);
     this.maxEnrollment = Number(courseData.MaxEnrollment);
     this.currentEnrollment = Number(courseData.CurrentEnrollment);
-    this.status = courseData.Status;
+    this.status = courseData.Status === 'O' ? 'open' : 'closed';
     this.startDate = new Date(courseData.StartDate);
     this.endDate = new Date(courseData.EndDate);
-    this.instructors = [];
 
+    // Helpful bools
     this.isFull = this.currentEnrollment === this.maxEnrollment;
+    this.isClosed = this.status === 'closed';
 
     // Store common search terms in lower case so we don't have to calculate every time
     this.titleLower = this.title.toLowerCase();
@@ -30,6 +32,7 @@ class Course {
 
     // Sometimes there are more than one instructor
     // Get 'em all
+    this.instructors = [];
     let instructorNum = 1;
     for (let instructKey = `instructor${instructorNum}`; instructKey in data; instructorNum++) {
       this.instructors.push(data[instructKey]);
@@ -51,13 +54,19 @@ class Course {
     }
   }
 
-  quickContains(query) {
+  // Composable fuzzyContains functions
+  quickContains(query, showClosed = false) {
+    return this.sectionContains(query)
+        && this.titleContains(query)
+        && showClosed ? true : this.isClosed;
+  }
+
+  sectionContains(query) {
     return this.sectionLower.search(query) > -1;
   }
 
-  contains(query) {
-    // Todo: allow for custom searching by passed list of keys
-    return this.sectionLower.search(query) > -1 || this.titleLower.search(query) > -1;
+  titleContains(query) {
+    return this.titleLower.search(query) > -1;
   }
 }
 

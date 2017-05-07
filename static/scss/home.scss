@@ -1,7 +1,7 @@
 @import 'variables';
 
 .component-schedule-preview {
-  height: 50px;
+  min-height: 50px;
   &.selected {
     background-color: $selected-background-color;
   }

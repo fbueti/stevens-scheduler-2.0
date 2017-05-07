@@ -16,6 +16,13 @@ class Semester {
     }
   }
 
+  getScheduleCourses(callNumbers) {
+    // Map over the courses in the semester, pulling by course.callNumber == courseCode
+    return this.courses.filter((course) => {
+        return callNumbers.indexOf(course.callNumber) !== -1;
+    });
+  }
+
   static makeEmpty() {
     return new Semester({}, { $: {}, Course: [] });
   }

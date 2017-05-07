@@ -51,10 +51,12 @@ const app = new Vue({
     createSchedule() {
       // Click Event
       // Create a new schedule then add it to the array of schedules
-      ApiService.createNewSchedule({ name: this.title, notes: this.notes, termCode: this.term.code })
+      ApiService.createNewSchedule({
+        name: this.title, notes: this.notes, termCode: this.term.code
+      })
           .then((schedule) => {
             // this.schedules.push(schedule);
-            window.location = `http://localhost:3000/edit/${schedule.id}`;
+            window.location.href = `http://${window.location.hostname}/edit/${schedule.id}`;
           });
     },
     scheduleDeleted(schedule) {

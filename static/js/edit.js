@@ -52,19 +52,6 @@ const app = new Vue({
       default() {
         return null;
       },
-      // semester: {
-      //   get() {
-      //     console.log('Loading semester!');
-      //     const schedule = this.schedule;
-      //     console.log(schedule);
-      //     return CourseService.getSemesterByCode(schedule.termCode)
-      //         .then((semester) => {
-      //           console.log('Loaded semester!');
-      //           this.semesterLoaded = true;
-      //           return semester;
-      //         });
-      //   },
-      // },
     },
 
   },

@@ -7,7 +7,7 @@ import Term from './Term';
 class Schedule {
   constructor(data) {
     this.id = data._id || data.id;
-    this.courseCodes = data.courses || [];
+    this.courseCodes = data.courseCodes || [];
     this.termCode = data.termCode;
     this.name = data.name || '';
     this.notes = data.notes || '';
@@ -21,8 +21,12 @@ class Schedule {
     this.courseCodes.splice(this.courseCodes.indexOf(course.callNumber), 1);
   }
 
-  hasCourse(callNumber) {
-    return this.courseCodes.indexOf(callNumber) !== -1;
+  hasCourseCode(callNumber) {
+    return this.hasCourse({ callNumber });
+  }
+
+  hasCourse(course) {
+    return this.courseCodes.indexOf(course.callNumber) !== -1;
   }
 
   static makeEmpty() {
