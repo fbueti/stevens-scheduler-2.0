@@ -19,6 +19,8 @@ const app = new Vue({
       schedule: Schedule.makeFromHash(window.location.search)
     };
   },
+  // Instead of writing in pug, make a render function?
+  // Since were not using .vue etc.
   render() {
     return (<schedule schedule={this.schedule} editable={false}/>);
   }

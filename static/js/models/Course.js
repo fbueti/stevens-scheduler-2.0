@@ -23,7 +23,7 @@ class Course {
 
     // Helpful bools
     this.isFull = this.currentEnrollment === this.maxEnrollment;
-    this.isClosed = this.status === 'closed';
+    this.isClosed = (this.status === 'closed');
 
     // Store common search terms in lower case so we don't have to calculate every time
     this.titleLower = this.title.toLowerCase();
@@ -55,8 +55,8 @@ class Course {
 
   // Composable contains functions
   quickContains(query, showClosed = false) {
-    return this.sectionContains(query)
-        && this.titleContains(query)
+    return (this.sectionContains(query)
+        || this.titleContains(query))
         && showClosed ? true : this.isClosed;
   }
 

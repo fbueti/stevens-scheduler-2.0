@@ -1,5 +1,23 @@
 @import "../variables";
 
- .component-schedule {
-   color: $font-color;
- }
+.component-schedule {
+  color: $font-color;
+
+
+  .component-course {
+
+
+  }
+
+  .component-course-meeting {
+    &:hover {
+      //background: transparentize($primary-color, .75);
+      background: $black;
+    }
+
+    &.preview {
+      color: red;
+    }
+
+  }
+}

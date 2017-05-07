@@ -7,7 +7,8 @@ import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
 
 // Components
-import './course.jsx';
+import './course';
+import './course-meeting';
 import './spinner';
 
 // Styles
@@ -38,6 +39,10 @@ Vue.component('schedule', {
     };
   },
   computed: {
+    shownCourses() {
+      if (this.previewCourse) return this.scheduleCourses.concat(this.previewCourse);
+      return this.scheduleCourses;
+    },
     filteredSemesterCourses() {
       if (this.courseQuery === '') return this.semester.courses; // If no search term
       return this.searchCourses();
@@ -49,7 +54,7 @@ Vue.component('schedule', {
       return this.scheduleCourses.reduce(
           (total, course) => total + course.maxCredit,
           0);
-    }
+    },
   },
   asyncComputed: {
     semester: {
@@ -77,6 +82,7 @@ Vue.component('schedule', {
     }, { deep: true });
   },
   methods: {
+    // EDITING functions
     searchCourses: throttle(function search() {
       // Throttled to get rid of unnecessary filters when typing quickly
       // Update the list of filtered Courses
@@ -84,7 +90,6 @@ Vue.component('schedule', {
           course =>
               course.quickContains(this.courseQuery.toLowerCase(), this.showClosed));
     }, 250),
-    // EDITING functions
     // These are here if we want to do more explicit add/remove than dblclick
     addCourse(course) {
       if (!this.editable) return;
@@ -147,13 +152,21 @@ Vue.component('schedule', {
     
       <section class="schedule-info">
         <p> Credits: {{ totalCredits }}</p>
+        
+        <!-- Really just here for debugging -->
+        <article class="courses">
+            <course  v-for="course in scheduleCourses" :key="course.callNumber" :course="course"></course>
+        </article>
       </section>
     
       <section class="schedule-view">
-        <course  v-for="course in scheduleCourses" :key="course.callNumber" :course="course"
-            @dblclick.native="toggleCourse(course)"></course>
-        <course class="preview" v-if="previewCourse" :course="previewCourse" 
-            @dblclick.native="toggleCourse(previewCourse)"></course>
+      <!--Todo: Some sort of grid layout -->
+        <template v-for="course in shownCourses">
+          <course-meeting v-for="meeting in course.meetings"
+                    :class="course === previewCourse ? 'preview' : ''"
+                    :meeting="meeting" :course="course" :key="course.callNumber"
+                    @dblclick.native="toggleCourse(course)"></course-meeting>
+        </template>
       </section>
     </div>
   </div>`,
