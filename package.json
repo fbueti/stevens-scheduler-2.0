@@ -2,7 +2,10 @@
   "name": "stevens-scheduler",
   "version": "1.0.0",
   "description": "An updated Stevens Scheduler. 3.0?",
-  "main": "index.js",
+  "main": "app.js",
+  "engines": {
+    "node": "7.4.0"
+  },
   "scripts": {
     "dev-build": "./node_modules/.bin/webpack",
     "build": "./node_modules/.bin/cross-env NODE_ENV=production ./node_modules/.bin/webpack",
@@ -41,7 +44,6 @@
     "moment": "^2.18.1",
     "mongoose": "^4.9.3",
     "mongoose-type-url": "^1.0.2",
-    "node-uuid": "^1.4.8",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",
     "pug": "^2.0.0-beta11",
