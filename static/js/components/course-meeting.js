@@ -31,7 +31,7 @@ Vue.component('course-meeting', {
     }
   },
   template: `
-    <div :class="[{ hover: isHovering }, 'component-course-meeting']" 
+    <div class="[{ hover: isHovering }, 'component-course-meeting']" 
     @mouseenter="mouseEnter" @mouseleave="mouseLeave">
     <h3>{{ course.title }}</h3>
     <h4>{{ course.section }}</h4>
