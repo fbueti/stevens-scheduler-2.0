@@ -10,3 +10,49 @@ body {
   background-color: $light-gray;
   color: $dark-gray;
 }
+
+#topBar{
+	background-color: $stevens-red;
+	height: 60px;
+}
+
+#topBarContainer{
+	width: 90%;
+	margin: auto;
+	max-width: 1366px;
+}
+
+#topBarContainer h1{
+	font-family: 'Francois One', sans-serif;
+    text-transform: uppercase;
+    font-weight: 100;
+    color: $light-gray;
+    float: left;
+    margin-top: 10px;
+}
+
+#topBarContainer img{
+	height: 40px;
+	width: 40px;
+	border-radius: 20px;
+}
+#topBarContainer p{
+	font-family: 'Droid Sans', sans-serif;	
+	color: $light-gray;
+}
+.mediumGray{
+	color: #b7b7b7;
+}
+#userInfo{
+	float: right;
+	width: 200px;
+	margin-top: 10px;
+}
+#userInfo img{
+	float: left;
+	margin-right: 10px;
+}
+#userInfo a p{
+	text-decoration: underline;
+	text-decoration-color: $light-gray;
+}
