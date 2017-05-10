@@ -13,12 +13,12 @@ function getDateFromTime(stevensDateString) {
 }
 
 class Meeting {
-  constructor(data) {
+  constructor(data, day) {
     data = data.$;
     this.activity = data.Activity;
     this.building = data.Building;
     this.site = data.Site;
-    this.day = data.Day;
+    this.day = day;
     if (data.StartTime) {
       this.hasMeetings = true;
       // Stored in a moment object, ignore date, just hours minutes
@@ -31,6 +31,10 @@ class Meeting {
       // No physical meetings
       this.hasMeetings = false;
     }
+  }
+
+  static getMeetingDayString(data) {
+    return data.$.Day;
   }
 }
 
