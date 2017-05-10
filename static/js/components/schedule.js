@@ -157,6 +157,28 @@ Vue.component('schedule', {
     
       <section class="schedule-view">
       <!--Todo: Some sort of grid layout -->
+        <div id="days">
+          <p class="day"> Monday </p>
+          <p class="day"> Tuesday </p>
+          <p class="day"> Wednesday </p>
+          <p class="day"> Thursday </p>
+          <p class="day"> Friday </p>
+        </div>
+        <div id="times">
+          <p > 8am </p>
+          <p> 9am </p>
+          <p> 10am </p>
+          <p> 11am </p>
+          <p> 12am </p>
+          <p> 1pm </p>
+          <p> 2pm </p>
+          <p> 3pm </p>
+          <p> 4pm </p>
+          <p> 5pm </p>
+          <p> 6pm </p>
+          <p> 7pm </p>
+          <p> 8pm </p>
+        </div>
         <template v-for="course in shownCourses">
           <course-meeting v-for="meeting in course.meetings"
                     :class="course === previewCourse ? 'preview' : ''"
