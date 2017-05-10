@@ -9,15 +9,18 @@ html
 			//- All styles should be loaded in the js file with webpack
 	body
 		nav
-			div#user-info
 			if user
-				if user.profile.photoURL
-					img(src=user.profile.photoURL)
-				else
-					img(src='https://lh4.googleusercontent.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAACyas/yR1_yhwBcBA/photo.jpg?sz=50')
-				p #{user.profile.displayName}
-				a(href='/logout'): button Log out
-
+				div#topBar
+					div#topBarContainer
+						h1 Stevens Scheduler 
+							span.mediumGray 2.0
+						div#userInfo
+							if user.profile.photoURL
+								img(src=user.profile.photoURL)
+							else
+								img(src='https://lh4.googleusercontent.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAACyas/yR1_yhwBcBA/photo.jpg?sz=50')
+							p #{user.profile.displayName}
+							a(href='/logout'): p Log out
 		block content
 
 		block scripts
