@@ -98,15 +98,17 @@ Vue.component('schedule', {
     // These are here if we want to do more explicit add/remove than dblclick
     addCourse(course) {
       if (!this.editable) return;
-      if (!this.schedule.hasCourse) {
+      if (!this.schedule.hasCourse(course)) {
         this.schedule.addCourse(course);
         this.scheduleCourses.push(course);
       }
     },
     removeCourse(course) {
       if (!this.editable) return;
-      this.schedule.removeCourse(course);
-      this.scheduleCourses.splice(this.scheduleCourses.indexOf(course), 1);
+      if (!this.schedule.hasCourse(course)) {
+        this.schedule.removeCourse(course);
+        this.scheduleCourses.splice(this.scheduleCourses.indexOf(course), 1);
+      }
     },
     toggleCourse(course) {
       if (!this.editable) return;
@@ -167,7 +169,7 @@ Vue.component('schedule', {
           <p class="day"> Friday </p>
         </div>
         <div id="times">
-          <p > 8am </p>
+          <p> 8am </p>
           <p> 9am </p>
           <p> 10am </p>
           <p> 11am </p>
@@ -181,6 +183,7 @@ Vue.component('schedule', {
           <p> 7pm </p>
           <p> 8pm </p>
         </div>
+        
         <template v-for="course in shownCourses">
           <course-meeting v-for="meeting in course.meetings"
                     :class="course === previewCourse ? 'preview' : ''"

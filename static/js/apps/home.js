@@ -26,7 +26,6 @@ const app = new Vue({
       term: '',
       selectedSchedule: null,
       addFormShowing: false,
-      termsLoaded: false,
     };
   },
   computed: {
@@ -37,6 +36,10 @@ const app = new Vue({
         }
         return acc;
       }, 0);
+    },
+    termsList() {
+      if (this.terms === null) return [];
+      return this.terms.reverse();
     }
   },
   asyncComputed: {
@@ -50,12 +53,10 @@ const app = new Vue({
     },
     terms: {
       async get() {
-        const terms = await CourseService.getTerms();
-        this.termsLoaded = true;
-        return terms;
+        return CourseService.getTerms();
       },
       default() {
-        return [];
+        return null;
       },
     },
   },

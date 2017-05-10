@@ -3,5 +3,8 @@ extends layouts/vue-app
 append scripts
 	script(type='text/javascript' src='/shared.bundle.js')
 
+block nav
+	include partials/no-user-nav
+
 block app
-	h1 Coming Soon!
+	spinner(name='fading-circles')

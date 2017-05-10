@@ -4,13 +4,13 @@ append scripts
 	script(type='text/javascript' src='/error.bundle.js')
 
 block nav
-	div#topBar
-		div#topBarContainer
-			h1
-				a(href="/home") Stevens Scheduler
-					span.mediumGray 2.0
+	include partials/no-user-nav
 
 block content
 	section.error
-		h1 Oops, we don't know what you're looking for!
+		case errorCode
+			when 404
+				h1 Oops, we don't know what you're looking for!
+			default
+				h1 Uh oh, something went wrong.
 		p #{errorDescription}

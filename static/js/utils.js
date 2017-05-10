@@ -3,11 +3,21 @@
  */
 
 /**
+ * NO BEGGING SLASH PLZ
+ * @param toPage
+ * @return {string}
+ */
+export function makeUrl(toPage) {
+  return `http://${window.location.host}/${toPage}`;
+}
+
+
+/**
  * NO BEGINNING SLASH PLZ
  * @param toPage
  */
 export function redirect(toPage) {
-  window.location.href = `http://${window.location.host}/${toPage}`;
+  window.location.href = makeUrl(toPage);
 }
 
 /**

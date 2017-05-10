@@ -35,7 +35,7 @@ class Schedule {
    * @return {string}
    */
   hash() {
-    return `termCode='${this.termCode}
+    return `termCode=${this.termCode}
     &courseCodes=${this.courseCodes.join(',')}
     &name=${this.name}&notes=${this.notes}`;
   }

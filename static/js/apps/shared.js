@@ -8,6 +8,7 @@ import Schedule from '../models/Schedule';
 
 // Components
 import '../components/schedule';
+import '../components/spinner';
 
 // Styles
 import '../../scss/shared.scss';

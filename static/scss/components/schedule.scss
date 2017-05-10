@@ -1,6 +1,12 @@
 @import "../variables";
 
 $days-of-week: M T W R F;
+$day-height: 40px;
+$day-width: 20%;
+$time-width: 50px;
+$time-height: 75px;
+$preview-color: $stevens-red;
+$preview-hover-color: $black;
 
 .component-schedule {
   height: 975px;
@@ -10,46 +16,53 @@ $days-of-week: M T W R F;
   width: 100%;
   margin: auto;
   color: $font-color;
-  .component-course {
-  }
 
   &.editable {
     .component-course-meeting {
       &:hover {
         //background: transparentize($primary-color, .75);
-        background: $black;
+        background: $preview-hover-color;
       }
 
       &.preview {
-        color: red;
+        color: $preview-color;
       }
 
     }
   }
+
   .day {
-    width: 20%;
+    height: $day-height;
+    width: $day-width;
     float: left;
     text-align: center;
     font-size: 12pt;
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
   #times {
     float: left;
-  }
-  #times p {
-    width: 50px;
-    height: 75px;
+
+    p {
+      height: $time-height;
+      width: $time-width;
+    }
   }
 
+
   .component-course-meeting {
+    position: absolute;
+
     @each $day in $days-of-week {
       $i: index($days-of-week, $day);
+
       &.#{$day} {
-        margin-left: #{(0 + (($i - 1) * 20)) + '%'};
+        margin-left: calc(#{((($i - 1) * $day-width))} + 50px);
       }
     }
 
+    // Don't show classes without meeting times
     &.TBA {
       display: none;
     }
