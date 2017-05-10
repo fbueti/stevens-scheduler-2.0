@@ -58,7 +58,7 @@ const app = new Vue({
       })
       .then((schedule) => {
         // this.schedules.push(schedule);
-        redirect(`/edit/${schedule.id}`);
+        redirect(`edit/${schedule.id}`);
       });
     },
     scheduleDeleted(schedule) {

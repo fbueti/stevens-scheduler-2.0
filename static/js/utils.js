@@ -2,6 +2,10 @@
  * Created by austin on 5/7/17.
  */
 
+/**
+ * NO BEGINNING SLASH PLZ
+ * @param toPage
+ */
 export function redirect(toPage) {
   window.location.href = `http://${window.location.host}/${toPage}`;
 }

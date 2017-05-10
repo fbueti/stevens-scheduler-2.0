@@ -51,7 +51,7 @@ Vue.component('schedule-preview', {
       this.$modal.show('share-modal');
     },
     editSchedule() {
-      redirect(`/edit/${this.schedule.id}`);
+      redirect(`edit/${this.schedule.id}`);
     },
   },
 });
