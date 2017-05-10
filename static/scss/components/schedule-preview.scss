@@ -1,5 +1,19 @@
 @import "../variables";
 
 .component-schedule-preview {
-  color: $font-color;
+  background-color: $stevens-red;
+  width: 25%;
+  border-radius: 3px;
+  color: $light-gray;
+  min-width: 200px;
+  padding: 10px;
+  float: left;
+  margin-right: 10px;
+}
+
+.component-schedule-preview p{
+	color: #d9d9d9;
+}
+.component-schedule-preview h1{
+	text-transform: uppercase;
 }

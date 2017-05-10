@@ -7,6 +7,7 @@
 
 html,
 body {
+  font-family: 'Droid Sans', sans-serif;	
   background-color: $light-gray;
   color: $dark-gray;
 }
@@ -26,9 +27,12 @@ body {
 	font-family: 'Francois One', sans-serif;
     text-transform: uppercase;
     font-weight: 100;
-    color: $light-gray;
     float: left;
     margin-top: 10px;
+}
+#topBarContainer h1 a{
+	text-decoration: none;
+    color: $light-gray;
 }
 
 #topBarContainer img{
