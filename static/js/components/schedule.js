@@ -155,15 +155,6 @@ Vue.component('schedule', {
           <input id="closedCheckbox" type="checkbox" v-model="showClosed">
       </section>  
     
-      <section class="schedule-info">
-        <p> Credits: {{ totalCredits }}</p>
-        
-        <!-- Really just here for debugging -->
-        <article class="courses">
-            <course  v-for="course in scheduleCourses" :key="course.callNumber" :course="course"></course>
-        </article>
-      </section>
-    
       <section class="schedule-view">
       <!--Todo: Some sort of grid layout -->
         <template v-for="course in shownCourses">

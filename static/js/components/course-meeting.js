@@ -22,6 +22,19 @@ Vue.component('course-meeting', {
   data() {
     return { isHovering: false };
   },
+  computed: {
+    style() {
+      return {};
+    },
+    dayClass() {
+      return this.meeting.day;
+    },
+    classes() {
+      return {
+
+      };
+    }
+  },
   methods: {
     mouseEnter() {
       this.isHovering = true;
@@ -31,10 +44,10 @@ Vue.component('course-meeting', {
     }
   },
   template: `
-    <div class="[{ hover: isHovering }, 'component-course-meeting']" 
-    @mouseenter="mouseEnter" @mouseleave="mouseLeave">
+    <div :class="[{ hover: isHovering }, dayClass, 'component-course-meeting']" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
     <h3>{{ course.title }}</h3>
     <h4>{{ course.section }}</h4>
+    <h5> {{ meeting.day }}</h5>
     <p>Credits: {{ course.maxCredits }}</p>
     <p>Call Number: {{ course.callNumber }}</p>
     <p>Spots Left: {{ course.maxEnrollment - course.currentEnrollment }}</p>
