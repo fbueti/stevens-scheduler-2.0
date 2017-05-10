@@ -79,6 +79,7 @@ module.exports = {
     edit: path.join(__dirname, 'static/js/apps/edit.js'),
     polyfills: ['babel-polyfill'],
     // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
+    'vendor-styles': ['font-awesome-webpack'],
     images: path.join(__dirname, 'static/js/images.js'),
     vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'vue-js-modal', 'lodash.throttle', 'lodash.debounce'],
   },
@@ -122,6 +123,14 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         loaders: imageLoaders,
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
       }
     ],
   },
