@@ -2,12 +2,13 @@ doctype html
 html
 	head
 		title Stevens Scheduler
+		link(href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet")
+		link(href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet")
+
 		block styles
 			//- All styles should be loaded in the js file with webpack
 	body
 		nav
-			div#brand
-				a(href='/home') Stevens Scheduler 3.0
 			div#user-info
 			if user
 				if user.profile.photoURL
