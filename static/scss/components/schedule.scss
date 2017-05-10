@@ -1,5 +1,7 @@
 @import "../variables";
 
+$days-of-week: M T W R F;
+
 .component-schedule {
   height: 975px;
   background-color: white;
@@ -24,19 +26,32 @@
 
     }
   }
-.day{
-  width: 20%;
-  float: left;
-  text-align: center;
-  font-size: 12pt;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-#times{
-  float: left;
-}
-#times p{
-  width: 50px;  
-  height: 75px;
-}
+  .day {
+    width: 20%;
+    float: left;
+    text-align: center;
+    font-size: 12pt;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #times {
+    float: left;
+  }
+  #times p {
+    width: 50px;
+    height: 75px;
+  }
+
+  .component-course-meeting {
+    @each $day in $days-of-week {
+      $i: index($days-of-week, $day);
+      &.#{$day} {
+        margin-left: #{(0 + (($i - 1) * 20)) + '%'};
+      }
+    }
+
+    &.TBA {
+      display: none;
+    }
+  }
 }
