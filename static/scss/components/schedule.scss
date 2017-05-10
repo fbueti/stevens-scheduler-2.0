@@ -9,15 +9,17 @@
   .component-course {
   }
 
-  .component-course-meeting {
-    &:hover {
-      //background: transparentize($primary-color, .75);
-      background: $black;
-    }
+  &.editable {
+    .component-course-meeting {
+      &:hover {
+        //background: transparentize($primary-color, .75);
+        background: $black;
+      }
 
-    &.preview {
-      color: red;
-    }
+      &.preview {
+        color: red;
+      }
 
+    }
   }
 }

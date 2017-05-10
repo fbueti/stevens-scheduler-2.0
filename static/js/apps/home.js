@@ -29,6 +29,16 @@ const app = new Vue({
       termsLoaded: false,
     };
   },
+  computed: {
+    maxPreviewHeight() {
+      return this.schedules.reduce((acc, schedule) =>  {
+        if (acc < schedule.title.length) {
+          acc = schedule.title.length;
+        }
+        return acc;
+      }, 0);
+    }
+  },
   asyncComputed: {
     schedules: {
       async get() {
