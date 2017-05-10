@@ -98,8 +98,10 @@ Vue.component('schedule', {
     // These are here if we want to do more explicit add/remove than dblclick
     addCourse(course) {
       if (!this.editable) return;
-      this.schedule.addCourse(course);
-      this.scheduleCourses.push(course);
+      if (!this.schedule.hasCourse) {
+        this.schedule.addCourse(course);
+        this.scheduleCourses.push(course);
+      }
     },
     removeCourse(course) {
       if (!this.editable) return;

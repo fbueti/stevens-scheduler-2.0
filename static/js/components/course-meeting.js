@@ -10,6 +10,7 @@ import Meeting from '../models/Meeting';
 // Styles
 import '../../scss/components/course-meeting.scss';
 
+
 /**
  * A course meeting
  * Todo: How to position this on the schedule?
@@ -23,16 +24,34 @@ Vue.component('course-meeting', {
     return { isHovering: false };
   },
   computed: {
-    style() {
-      return {};
+    styles() {
+      return {
+        height: this.height,
+        'margin-top': this.marginTop,
+        'margin-left': this.marginLeft,
+      };
     },
     dayClass() {
       return this.meeting.day;
     },
-    classes() {
-      return {
+    marginTop() {
+      // 40 px for the day header
 
-      };
+    },
+    marginLeft() {
+      // 50 px for the hour column
+      const parentWidth = this.$parent.$el.offsetWidth;
+      switch(this.meeting.day) {
+        case 'M':
+      }
+    },
+    height() {
+      // every hour is 75 pixels
+      // duration
+      if (!this.meeting.hasMeetings) {
+        return 0;
+      }
+      return `${75 * this.meeting.duration.asHours()}px`;
     }
   },
   methods: {
@@ -44,7 +63,7 @@ Vue.component('course-meeting', {
     }
   },
   template: `
-    <div :class="[{ hover: isHovering }, dayClass, 'component-course-meeting']" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
+    <div :class="[{ hover: isHovering }, dayClass, 'component-course-meeting']" :style="styles" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
     <h3>{{ course.title }}</h3>
     <h4>{{ course.section }}</h4>
     <h5> {{ meeting.day }}</h5>
