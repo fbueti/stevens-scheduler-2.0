@@ -1,6 +1,7 @@
 /**
  * Created by Gregory on 5/1/17.
  */
+import 'font-awesome-webpack';
 import Vue from '../VueSetup';
 import Schedule from '../models/Schedule';
 import ApiService from '../services/ApiService';
@@ -22,6 +23,7 @@ Vue.component('schedule-preview', {
   template: `<div class="component-schedule-preview"> 
   <h2>{{schedule.name}}</h2> 
   <p>{{schedule.notes}}</p> 
+  <i class="fa fa-paper-plane" aria-hidden="true"></i>
   <a v-bind:href=" '/edit/' + schedule.id">Edit</a> 
   <a @click="deleteSchedule">Delete</a> 
   </div>`,
