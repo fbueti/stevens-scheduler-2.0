@@ -1,12 +1,12 @@
 @import "../variables";
 
 .component-schedule {
+  position: relative;
+  width: 90%;
+  background-color: white;
+  margin: auto;
   color: $font-color;
-
-
   .component-course {
-
-
   }
 
   .component-course-meeting {
