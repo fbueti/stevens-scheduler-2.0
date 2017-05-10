@@ -12,3 +12,23 @@
   margin-bottom: 20px;
 }
 
+.btn-new-schedule{
+  background-color: #cccccc;
+  width: 25%;
+  border-radius: 3px;
+  text-align: center;
+  color: $dark-gray;
+  min-width: 200px;
+  padding: 10px;
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  height: 100px;
+}
+.btn-new-schedule p{
+	margin-top: 40px;
+}
+.btn-new-schedule:hover{
+	cursor: pointer;
+	opacity: .8;
+}
