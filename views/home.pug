@@ -17,7 +17,7 @@ block app
 			div.btn-new-schedule(@click="showAddForm")
 				p + New Schedule
 
-			modal(name="add-form-modal")
+			modal(name="add-form-modal" classes="test")
 				form(id="add-form" v-on:submit.prevent="createSchedule")
 					input(v-model="title" placeholder="Title" required)
 					input(v-model="notes" placeholder="Description")
