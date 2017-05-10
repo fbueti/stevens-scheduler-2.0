@@ -12,8 +12,9 @@ html
 			if user
 				div#topBar
 					div#topBarContainer
-						h1 Stevens Scheduler 
-							span.mediumGray 2.0
+						h1
+							a(href="/home") Stevens Scheduler 
+								span.mediumGray 2.0
 						div#userInfo
 							if user.profile.photoURL
 								img(src=user.profile.photoURL)

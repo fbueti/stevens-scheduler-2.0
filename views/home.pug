@@ -5,27 +5,29 @@ append scripts
 
 block app
 	// Let's think about moving all this to a home component in home.js
-	section#previews
-		template(v-for="schedule in schedules")
-			schedule-preview(@click.native="scheduleSelect(schedule)"
-				v-bind:schedule="schedule"
-				v-bind:class="{ selected : isSelected(schedule) }"
-				v-bind:on-delete="scheduleDeleted")
-		//	To Create a new schedule
-		button.btn-new-schedule(@click="showAddForm") New Schedule
+	div#container
+		section#previews
+			h1 My Schedules
+			template(v-for="schedule in schedules")
+				schedule-preview(@click.native="scheduleSelect(schedule)"
+					v-bind:schedule="schedule"
+					v-bind:class="{ selected : isSelected(schedule) }"
+					v-bind:on-delete="scheduleDeleted")
+			//	To Create a new schedule
+			button.btn-new-schedule(@click="showAddForm") New Schedule
 
-		modal(name="add-form-modal")
-			form(id="add-form" v-on:submit.prevent="createSchedule")
-				input(v-model="title" placeholder="Title" required)
-				input(v-model="notes" placeholder="Description")
-				select(v-model="term" required)
-					option(value="") Select Term
-					option(v-bind:value="term" v-for="term in terms.reverse()") {{ term.name }}
-				button.btn-create-schedule(type="submit") Create Schedule
-				button.btn-cancel-create-schedule(@click="hideAddForm") Cancel
+			modal(name="add-form-modal")
+				form(id="add-form" v-on:submit.prevent="createSchedule")
+					input(v-model="title" placeholder="Title" required)
+					input(v-model="notes" placeholder="Description")
+					select(v-model="term" required)
+						option(value="") Select Term
+						option(v-bind:value="term" v-for="term in terms.reverse()") {{ term.name }}
+					button.btn-create-schedule(type="submit") Create Schedule
+					button.btn-cancel-create-schedule(@click="hideAddForm") Cancel
 
-		//- Show the schedule if
-		article#schedule(v-if="selectedSchedule")
-			button(@click="scheduleDeselect") Close
-			schedule(v-bind:schedule="selectedSchedule"
-					v-bind:editable="false")
+			//- Show the schedule if
+			article#schedule(v-if="selectedSchedule")
+				button(@click="scheduleDeselect") Close
+				schedule(v-bind:schedule="selectedSchedule"
+						v-bind:editable="false")

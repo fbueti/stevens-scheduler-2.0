@@ -1,8 +1,14 @@
 @import 'variables';
 
-.component-schedule-preview {
-  min-height: 50px;
-  &.selected {
-    background-color: #f3f3f3;
-  }
+#container{
+	margin: auto;
+	width: 90%;
+	max-width: 1366px;
 }
+#container h1{
+  font-size: 14pt;
+  font-weight: 100;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
