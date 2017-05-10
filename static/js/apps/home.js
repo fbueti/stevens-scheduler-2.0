@@ -1,6 +1,7 @@
 /**
  * Created by austin on 4/30/17.
  */
+import vmodal from 'vue-js-modal';
 import './main';
 import Vue from '../VueSetup';
 import ApiService from '../services/ApiService';
@@ -14,6 +15,7 @@ import '../components/schedule';
 import '../../scss/home.scss';
 
 // Setup app
+Vue.use(vmodal);
 
 const app = new Vue({
   el: '#app',
@@ -44,10 +46,10 @@ const app = new Vue({
   },
   methods: {
     showAddForm() {
-      this.addFormShowing = true;
+      this.$modal.show('add-form-modal');
     },
     hideAddForm() {
-      this.addFormShowing = false;
+      this.$modal.hide('add-form-modal');
     },
     createSchedule() {
       // Create a new schedule then add it to the array of schedules

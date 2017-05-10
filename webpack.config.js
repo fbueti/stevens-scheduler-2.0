@@ -51,10 +51,10 @@ module.exports = {
     home: path.join(__dirname, 'static', 'js', 'apps', 'home.js'),
     shared: path.join(__dirname, 'static', 'js', 'apps', 'shared.js'),
     splash: path.join(__dirname, 'static', 'js', 'apps', 'splash.js'),
-    edit: path.join(__dirname, 'static', 'js', 'apps', 'edit.js'),
+    edit: path.join(__dirname, 'static/js/apps/edit.js'),
     polyfills: ['babel-polyfill'],
     // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
-    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'lodash.throttle', 'lodash.debounce'],
+    vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'vue-js-modal', 'lodash.throttle', 'lodash.debounce'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
