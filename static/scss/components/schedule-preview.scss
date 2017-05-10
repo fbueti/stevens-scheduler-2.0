@@ -13,6 +13,11 @@
   height: 100px;
 }
 
+.component-schedule-preview:hover{
+	cursor: pointer;
+	opacity: .95;
+}
+
 .component-schedule-preview p{
 	margin-top: 5px;
 	color: #d9d9d9;

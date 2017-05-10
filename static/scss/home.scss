@@ -14,7 +14,7 @@
 
 .btn-new-schedule{
   background-color: #cccccc;
-  width: 25%;
+  width: 20%;
   border-radius: 3px;
   text-align: center;
   color: $dark-gray;
@@ -27,11 +27,13 @@
 }
 .btn-new-schedule p{
 	margin-top: 40px;
+	font-size: 14pt;
 }
 .btn-new-schedule:hover{
 	cursor: pointer;
 	opacity: .8;
 }
+<<<<<<< HEAD
 
 .v--modal {
   color: red;
@@ -40,4 +42,11 @@
 
 .test {
   background: black !important;
+=======
+#addForm{
+	background-color: green;
+}
+#addForm input{
+	background-color: yellow;
+>>>>>>> 52367540eea77369a264f6f01c93673a5ad2bae4
 }
