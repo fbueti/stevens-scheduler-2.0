@@ -132,7 +132,7 @@ Vue.component('schedule', {
   // Show semester course selection only if editable
   template: `<div class="component-schedule"> 
     <div class="loading" v-if="!loaded">
-        <spinner name="cube-grid"></spinner>
+        <spinner name="fading-circle"></spinner>
     </div>
     <div class="loaded" v-else>
       <section  v-if="editable" class="semester-courses">

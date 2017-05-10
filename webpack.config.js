@@ -17,16 +17,38 @@ const plugins = [
 // Slow but project is small
 let devtool = 'source-map';
 let filenameFormat;
+// Todo: load images better ha ha
+let imageLoaders = [
+  'file-loader?name=img/[name].[ext]',
+  {
+    loader: 'image-webpack-loader',
+    query: {
+      progressive: true,
+      pngquant: {
+        quality: '65-90',
+        speed: 4,
+        optimizationLevel: 3,
+      },
+      gifsicle: {
+        quality: '65-90',
+        speed: 4,
+        optimizationLevel: 3,
+        interlaced: false,
+      }
+    }
+  }
+];
+
 if (process.env.NODE_ENV === 'production') {
   // All Production config
   devtool = false;
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      screw_ie8: true,
-    },
-    sourceMap: false,
-  }),
+        compress: {
+          warnings: false,
+          screw_ie8: true,
+        },
+        sourceMap: false,
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
       })
@@ -34,11 +56,14 @@ if (process.env.NODE_ENV === 'production') {
   // Todo: better static resource serving
   // filenameFormat = '[name].[hash].bundle.js';
   filenameFormat = '[name].bundle.js';
+
+
 } else {
   // Development
+  console.log('Dev build.');
   plugins.push(new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('development'),
-  })
+        'process.env.NODE_ENV': JSON.stringify('development'),
+      })
   );
   filenameFormat = '[name].bundle.js';
 }
@@ -54,6 +79,7 @@ module.exports = {
     edit: path.join(__dirname, 'static/js/apps/edit.js'),
     polyfills: ['babel-polyfill'],
     // 'vendor-styles': ['spinkit'], Todo: Split vendor styles
+    images: path.join(__dirname, 'static/js/images.js'),
     vendor: ['vue', 'vue-resource', 'vue-async-computed', 'vue-moment', 'vue-js-modal', 'lodash.throttle', 'lodash.debounce'],
   },
   output: {
@@ -93,6 +119,10 @@ module.exports = {
           },
         }],
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loaders: imageLoaders,
+      }
     ],
   },
 };
