@@ -4,5 +4,6 @@ append scripts
 	script(type='text/javascript' src='/error.bundle.js')
 
 block content
-	h1 #{errorCode}
-	p #{errorDescription}
+	section.error
+		h1 Oops, we don't know what you're looking for!
+		p #{errorDescription}
