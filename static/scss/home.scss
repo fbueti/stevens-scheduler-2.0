@@ -1,5 +1,12 @@
 @import 'variables';
 
+#previews{
+	width: 100%;
+	position: relative;
+	right: clear;
+	display: table-cell;
+}
+
 #container{
 	margin: auto;
 	width: 90%;
