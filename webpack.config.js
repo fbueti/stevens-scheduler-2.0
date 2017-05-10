@@ -60,7 +60,6 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
   // Development
-  console.log('Dev build.');
   plugins.push(new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('development'),
       })

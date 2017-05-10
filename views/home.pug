@@ -20,9 +20,9 @@ block app
 				form(id="add-form" v-on:submit.prevent="createSchedule")
 					input(v-model="title" placeholder="Title" required)
 					input(v-model="notes" placeholder="Description")
-					select(v-model="term" required)
+					select(v-model="term" required v-if="termsLoaded")
 						option(value="") Select Term
-						option(v-bind:value="term" v-for="term in terms.reverse()") {{ term.name }}
+						option(v-bind:value="term" v-for="term in terms") {{ term.name }}
 					button.btn-create-schedule(type="submit") Create Schedule
 					button.btn-cancel-create-schedule(@click="hideAddForm") Cancel
 

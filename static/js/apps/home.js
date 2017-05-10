@@ -19,12 +19,15 @@ Vue.use(vmodal);
 
 const app = new Vue({
   el: '#app',
-  data: {
-    title: '',
-    notes: '',
-    term: '',
-    selectedSchedule: null,
-    addFormShowing: false,
+  data() {
+    return {
+      title: '',
+      notes: '',
+      term: '',
+      selectedSchedule: null,
+      addFormShowing: false,
+      termsLoaded: false,
+    };
   },
   asyncComputed: {
     schedules: {
@@ -37,7 +40,9 @@ const app = new Vue({
     },
     terms: {
       async get() {
-        return CourseService.getTerms();
+        const terms = await CourseService.getTerms();
+        this.termsLoaded = true;
+        return terms;
       },
       default() {
         return [];

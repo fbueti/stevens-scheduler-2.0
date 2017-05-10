@@ -5,7 +5,7 @@ import ApiService from '../services/ApiService';
 import CourseService from '../services/CourseService';
 import Schedule from '../models/Schedule';
 import Semester from '../models/Semester';
-
+import { redirect } from '../utils';
 // Components
 import './course';
 import './course-meeting';
@@ -66,6 +66,11 @@ Vue.component('schedule', {
               // Load in the schedule courses
               this.scheduleCourses = semester.getScheduleCourses(this.schedule.courseCodes);
               return semester;
+            })
+            .catch((error) => {
+              if (error && error.status && error.status === 500) {
+                redirect('server-error');
+              }
             });
       },
       default() {
