@@ -28,10 +28,11 @@ Vue.component('schedule-preview', {
   template: `<div class="component-schedule-preview"> 
   <h2>{{schedule.name}}</h2> 
   <p>{{schedule.notes}}</p> 
-  <i class="fa fa-paper-plane" aria-hidden="true" @click="shareSchedule"></i>
-  <a v-bind:href=" '/edit/' + schedule.id">Edit</a> 
-  <a @click="deleteSchedule">Delete</a> 
-  
+  <div id="actions">
+    <a>Share</a> | 
+    <a v-bind:href=" '/edit/' + schedule.id">Edit</a> | 
+    <a @click="deleteSchedule">Delete</a> 
+  </div>
   <modal name="share-modal">
   
   </modal>

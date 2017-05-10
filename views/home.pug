@@ -14,7 +14,8 @@ block app
 					v-bind:class="{ selected : isSelected(schedule) }"
 					v-bind:on-delete="scheduleDeleted")
 			//	To Create a new schedule
-			button.btn-new-schedule(@click="showAddForm") New Schedule
+			div.btn-new-schedule(@click="showAddForm")
+				p + New Schedule
 
 			modal(name="add-form-modal")
 				form(id="add-form" v-on:submit.prevent="createSchedule")
