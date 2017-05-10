@@ -12,6 +12,7 @@ h1{
     text-transform: uppercase;
     font-size: 5vw;
     margin-top: 20%;
+    font-weight: 100;
 }
 .red{
 	color: $stevens-red;
@@ -20,10 +21,17 @@ p{
 	font-family: 'Droid Sans', sans-serif;
 	font-size: 3vw;
 	max-width: 500px;
+	color: #666;
+	margin-bottom: 20px;
 }
 img{
 	width: 70%;
 	max-width: 300px;
+	margin-left: -5px;
+}
+img:hover{
+	cursor: pointer;
+	opacity: .8;
 }
 footer{
 	background-color: $stevens-red;
@@ -31,4 +39,27 @@ footer{
 	bottom: 0;
 	height: 30%;
 	width: 100%;
+	z-index: -1;
+}
+
+  @media (min-width: 1400px) {
+  h1 {
+    font-size: 50pt;
+  }
+}
+
+  @media (min-width: 1000px) {
+  p {
+    font-size: 30pt;
+    max-width: 700px;
+  }
+}
+
+  @media (max-width: 750px) {
+  h1 {
+    font-size: 25pt;
+  }
+  p {
+    font-size: 15pt;
+  }
 }
