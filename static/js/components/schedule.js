@@ -40,7 +40,10 @@ Vue.component('schedule', {
   },
   computed: {
     shownCourses() {
-      if (this.previewCourse) return this.scheduleCourses.concat(this.previewCourse);
+      // A hacky way to not have duplicates
+      if (this.previewCourse && this.scheduleCourses.indexOf(this.previewCourse) === -1) {
+        return this.scheduleCourses.concat(this.previewCourse);
+      }
       return this.scheduleCourses;
     },
     shownWebCourses() {
@@ -50,7 +53,8 @@ Vue.component('schedule', {
      * All courses that have yet to be announced
      */
     shownTBACourses() {
-      return this.shownCourses.filter(course => course.isTBA);
+      // Web courses will be handled differently
+      return this.shownCourses.filter(course => course.isTBA && !course.isWeb);
     },
     filteredSemesterCourses() {
       if (this.courseQuery === '') return this.semester.courses; // If no search term
@@ -180,8 +184,8 @@ Vue.component('schedule', {
       <section class="schedule-view">
       <h1>{{schedule.termCode}}</h1>
       <article class="web-courses">
+        <h2>Web Courses</h2>
         <template v-for="course in shownWebCourses" v-if="shownWebCourses.length > 0">
-          <h2>Web Courses</h2>
           <course-meeting v-for="meeting in course.meetings"
                     :class="course === previewCourse ? 'preview' : ''"
                     :positioned="false"

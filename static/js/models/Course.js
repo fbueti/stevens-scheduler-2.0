@@ -48,10 +48,10 @@ class Course {
       for (const meetData of meetingsData) {
         const meetDayStr = Meeting.getMeetingDayString(meetData);
         // Break up the meeting Day String into each day if not TBA
+        this.hasMeetings = true;
         if (meetDayStr === 'TBA') {
           this.meetings.push(new Meeting(meetData, meetDayStr));
         } else {
-          this.hasMeetings = true;
           for (const day of meetDayStr) {
             this.meetings.push(new Meeting(meetData, day));
           }
