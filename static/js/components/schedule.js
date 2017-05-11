@@ -117,18 +117,12 @@ Vue.component('schedule', {
     }, 250),
     // These are here if we want to do more explicit add/remove than dblclick
     addCourse(course) {
-      if (!this.editable) return;
-      if (!this.schedule.hasCourse(course)) {
-        this.schedule.addCourse(course);
-        this.scheduleCourses.push(course);
-      }
+      this.schedule.addCourse(course);
+      this.scheduleCourses.push(course);
     },
     removeCourse(course) {
-      if (!this.editable) return;
-      if (!this.schedule.hasCourse(course)) {
-        this.schedule.removeCourse(course);
-        this.scheduleCourses.splice(this.scheduleCourses.indexOf(course), 1);
-      }
+      this.schedule.removeCourse(course);
+      this.scheduleCourses.splice(this.scheduleCourses.indexOf(course), 1);
     },
     toggleCourse(course) {
       if (!this.editable) return;
@@ -182,10 +176,12 @@ Vue.component('schedule', {
       </section>  
     
       <section class="schedule-view">
+      
       <h1>{{schedule.termCode}}</h1>
-      <article class="web-courses">
+      
+      <article class="web-courses"  v-if="shownWebCourses.length > 0">
         <h2>Web Courses</h2>
-        <template v-for="course in shownWebCourses" v-if="shownWebCourses.length > 0">
+        <template v-for="course in shownWebCourses">
           <course-meeting v-for="meeting in course.meetings"
                     :class="course === previewCourse ? 'preview' : ''"
                     :positioned="false"
