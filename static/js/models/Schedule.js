@@ -37,9 +37,7 @@ class Schedule {
   get hash() {
     const codes = this.courseCodes.length === 0 ? '' : this.courseCodes.join(',').trim();
 
-    return `termCode=${this.termCode}
-    &courseCodes=${codes}
-    &name=${this.name}&notes=${this.notes}`;
+    return `termCode=${this.termCode}&courseCodes=${codes}&name=${this.name}&notes=${this.notes}`;
   }
 
   /**
