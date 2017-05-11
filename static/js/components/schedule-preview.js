@@ -32,7 +32,7 @@ Vue.component('schedule-preview', {
   },
   computed: {
     shareUrl() {
-      return makeUrl(`shared?${this.schedule.hash()}`);
+      return makeUrl(`shared?${this.schedule.hash}`);
     }
   },
   methods: {

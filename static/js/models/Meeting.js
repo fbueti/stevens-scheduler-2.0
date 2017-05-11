@@ -28,7 +28,7 @@ class Meeting {
       // Stored in a moment object, ignore date, just hours minutes
       this.startDuration = getDurationFromTimeString(data.StartTime);
       this.endDuration = getDurationFromTimeString(data.EndTime);
-      this.duration = this.endDuration.subtract(this.startDuration);
+      this.duration = moment.duration(this.endDuration).subtract(this.startDuration);
     } else {
       // No physical meetings
       this.hasMeetings = false;

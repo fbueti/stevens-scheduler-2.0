@@ -43,6 +43,15 @@ Vue.component('schedule', {
       if (this.previewCourse) return this.scheduleCourses.concat(this.previewCourse);
       return this.scheduleCourses;
     },
+    shownWebCourses() {
+      return this.shownCourses.filter(course => course.isWeb);
+    },
+    /**
+     * All courses that have yet to be announced
+     */
+    shownTBACourses() {
+      return this.shownCourses.filter(course => course.isTBA);
+    },
     filteredSemesterCourses() {
       if (this.courseQuery === '') return this.semester.courses; // If no search term
       return this.searchCourses();
@@ -52,6 +61,11 @@ Vue.component('schedule', {
     },
     totalCredits() {
       return this.scheduleCourses.reduce(
+          (total, course) => total + course.maxCredit,
+          0);
+    },
+    totalShownCredits() {
+      return this.shownCourses.reduce(
           (total, course) => total + course.maxCredit,
           0);
     },
@@ -70,6 +84,8 @@ Vue.component('schedule', {
             .catch((error) => {
               if (error && error.status && error.status === 500) {
                 redirect('server-error');
+              } else {
+                console.error(error);
               }
             });
       },
@@ -126,16 +142,15 @@ Vue.component('schedule', {
     autoSaveSchedule: debounce(function save() {
       this.saveSchedule();
     }, 1000), // Save a max of once a second
-    saveSchedule() {
-      ApiService.updateSchedule(this.schedule)
-          .then(() => {
-            // Great
-            console.log('Saved!');
-          })
-          .catch((err) => {
-            // Not Great
-            console.error(err);
-          });
+    async saveSchedule() {
+      try {
+        await ApiService.updateSchedule(this.schedule);
+        // Great
+        console.log('Saved!');
+      } catch (error) {
+        // Not Great
+        console.error(error);
+      }
     },
   },
   // Show semester course selection only if editable
@@ -145,8 +160,8 @@ Vue.component('schedule', {
     </div>
     <div class="loaded" v-else>
       <section  v-if="editable" class="semester-courses">
-          <input id="name" :value="schedule.name" v-model="schedule.name"/>
-          <input id="notes" :value="schedule.notes" v-model="schedule.notes"/>
+          <input id="name" :value="schedule.name" v-model="schedule.name" placeholder="Title"/>
+          <input id="notes" :value="schedule.notes" v-model="schedule.notes" placeholder="Notes"/>
           <input class="course-search" type="text" placeholder="Search courses" v-model="courseQuery">
           
           <select class="course-selector" size="25" v-model="previewCourse">
@@ -157,9 +172,35 @@ Vue.component('schedule', {
           
           <label for="closedCheckbox">Show closed?</label>
           <input id="closedCheckbox" type="checkbox" v-model="showClosed">
+          <p> Credits: {{ totalShownCredits }}</p>
+          <!-- lol @ timely greg -->
+          <button>Save</button>
       </section>  
     
       <section class="schedule-view">
+      <h1>{{schedule.termCode}}</h1>
+      <article class="web-courses">
+        <template v-for="course in shownWebCourses" v-if="shownWebCourses.length > 0">
+          <h2>Web Courses</h2>
+          <course-meeting v-for="meeting in course.meetings"
+                    :class="course === previewCourse ? 'preview' : ''"
+                    :positioned="false"
+                    :meeting="meeting" :course="course" :key="course.callNumber"
+                    @dblclick.native="toggleCourse(course)"></course-meeting>
+        </template>
+      </article>
+      
+      <article class="tba-courses" v-if="shownTBACourses.length > 0">
+        <h2>TBA Courses</h2>
+        <template v-for="course in shownTBACourses">
+          <course-meeting v-for="meeting in course.meetings"
+                    :class="course === previewCourse ? 'preview' : ''"
+                    :positioned="false"
+                    :meeting="meeting" :course="course" :key="course.callNumber"
+                    @dblclick.native="toggleCourse(course)"></course-meeting>
+        </template>
+      </article>
+      
       <!--Todo: Some sort of grid layout -->
         <div id="days">
           <p class="day"> Monday </p>

@@ -4,6 +4,9 @@
 import Meeting from './Meeting';
 import Requirement from './Requirement';
 
+/**
+ * Todo: Cleanup and Documentation
+ */
 class Course {
   constructor(data) {
     const courseData = data.$;
@@ -24,6 +27,7 @@ class Course {
     // Helpful bools
     this.isFull = this.currentEnrollment === this.maxEnrollment;
     this.isClosed = (this.status === 'closed');
+    this.isWeb = this.section.indexOf('WS') > -1;
 
     // Store common search terms in lower case so we don't have to calculate every time
     this.titleLower = this.title.toLowerCase();
@@ -39,6 +43,7 @@ class Course {
 
     // Build meetings and requirements
     this.meetings = [];
+    this.hasMeetings = false;
     if (meetingsData) {
       for (const meetData of meetingsData) {
         const meetDayStr = Meeting.getMeetingDayString(meetData);
@@ -46,12 +51,15 @@ class Course {
         if (meetDayStr === 'TBA') {
           this.meetings.push(new Meeting(meetData, meetDayStr));
         } else {
+          this.hasMeetings = true;
           for (const day of meetDayStr) {
             this.meetings.push(new Meeting(meetData, day));
           }
         }
       }
     }
+
+    this.isTBA = this.hasMeetings && !this.isWeb;
 
     this.requirements = [];
     if (reqsData) {
@@ -63,13 +71,8 @@ class Course {
 
   // Composable contains functions
   quickContains(query, showClosed = false) {
-    return (this.sectionContains(query)
-        || this.titleContains(query))
+    return (this.sectionContains(query) || this.titleContains(query))
         && showClosed ? true : this.isClosed;
-  }
-
-  regexContains(query, showClosed = false) {
-    // Todo!
   }
 
   sectionContains(query) {

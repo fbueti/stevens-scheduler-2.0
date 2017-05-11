@@ -34,9 +34,11 @@ class Schedule {
    * Save everything but the id
    * @return {string}
    */
-  hash() {
+  get hash() {
+    const codes = this.courseCodes.length === 0 ? '' : this.courseCodes.join(',');
+
     return `termCode=${this.termCode}
-    &courseCodes=${this.courseCodes.join(',')}
+    &courseCodes=${codes}
     &name=${this.name}&notes=${this.notes}`;
   }
 
