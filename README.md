@@ -21,6 +21,12 @@ bundles.
 
 *dependencies* are all that's necessary for a production environment.
 
+On macOs (and maybe windows???), there are a few dependencies that aren't
+included in the distribution.
+You may need:
+- pngquant
+
+
 ## Notes
 In later version, the client will be migrated to a single page app.
 
