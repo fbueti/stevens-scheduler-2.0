@@ -158,10 +158,13 @@ Vue.component('schedule', {
     </div>
     <div class="loaded" v-else>
       <section  v-if="editable" class="semester-courses">
-          <input id="name" :value="schedule.name" v-model="schedule.name" placeholder="Title"/>
-          <input id="notes" :value="schedule.notes" v-model="schedule.notes" placeholder="Notes"/>
-          <input class="course-search" type="text" placeholder="Search courses" v-model="courseQuery">
-          
+          <section id="editable-info">
+            <p> Schedule Title: </p>
+            <input id="name" :value="schedule.name" v-model="schedule.name" placeholder="Title"/>
+            <p> Schedule Description: </p>
+            <input id="notes" :value="schedule.notes" v-model="schedule.notes" placeholder="Notes"/>
+            <input class="course-search" type="text" placeholder="Search courses..." v-model="courseQuery">
+          </section>
           <select class="course-selector" size="25" v-model="previewCourse">
               <option v-for="course in filteredSemesterCourses" :key="course.callNumber" :value="course"> 
               {{course.section}}: {{course.title}} 
@@ -170,7 +173,7 @@ Vue.component('schedule', {
           
           <label for="closedCheckbox">Show closed?</label>
           <input id="closedCheckbox" type="checkbox" v-model="showClosed">
-          <p> Credits: {{ totalShownCredits }}</p>
+          <p> Total Credits: {{ totalShownCredits }}</p>
           <!-- lol @ timely greg -->
           <button>Save</button>
       </section>  
