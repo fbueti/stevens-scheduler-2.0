@@ -7,7 +7,7 @@ $day-width-edit-pc: 16%;
 $time-width: 50px;
 $time-height: 75px;
 $preview-color: $stevens-red;
-$preview-hover-color: $black;
+$preview-hover-color: $light-gray;
 
 @mixin course-widths($width-pc) {
   @each $day in $days-of-week {

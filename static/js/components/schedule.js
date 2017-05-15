@@ -164,6 +164,14 @@ Vue.component('schedule', {
             <p> Schedule Description: </p>
             <input id="notes" :value="schedule.notes" v-model="schedule.notes" placeholder="Notes"/>
             <input class="course-search" type="text" placeholder="Search courses..." v-model="courseQuery">
+          <div class="extra-info">
+            <p>{{schedule.termCode}}</p>
+            <label for="closedCheckbox">Show closed?</label>
+            <input id="closedCheckbox" type="checkbox" v-model="showClosed">
+            <p> Total Credits: {{ totalShownCredits }}</p>
+            <!-- lol @ timely greg -->
+            <button>Save</button>
+          </div>
           </section>
           <select class="course-selector" size="25" v-model="previewCourse">
               <option v-for="course in filteredSemesterCourses" :key="course.callNumber" :value="course"> 
@@ -171,27 +179,9 @@ Vue.component('schedule', {
               </option>
           </select>
           
-          <label for="closedCheckbox">Show closed?</label>
-          <input id="closedCheckbox" type="checkbox" v-model="showClosed">
-          <p> Total Credits: {{ totalShownCredits }}</p>
-          <!-- lol @ timely greg -->
-          <button>Save</button>
       </section>  
     
-      <section class="schedule-view">
-      
-      <h1>{{schedule.termCode}}</h1>
-      
-      <article class="web-courses"  v-if="shownWebCourses.length > 0">
-        <h2>Web Courses</h2>
-        <template v-for="course in shownWebCourses">
-          <course-meeting v-for="meeting in course.meetings"
-                    :class="course === previewCourse ? 'preview' : ''"
-                    :positioned="false"
-                    :meeting="meeting" :course="course" :key="course.callNumber"
-                    @dblclick.native="toggleCourse(course)"></course-meeting>
-        </template>
-      </article>
+      <section class="schedule-view">      
       
       <!--<article class="tba-courses" v-if="shownTBACourses.length > 0">-->
         <!--<h2>TBA Courses</h2>-->
@@ -234,6 +224,18 @@ Vue.component('schedule', {
                     @dblclick.native="toggleCourse(course)"></course-meeting>
         </template>
       </section>
+
+      <article class="web-courses"  v-if="shownWebCourses.length > 0">
+        <h2>Web Courses</h2>
+        <template v-for="course in shownWebCourses">
+          <course-meeting v-for="meeting in course.meetings"
+                    :class="course === previewCourse ? 'preview' : ''"
+                    :positioned="false"
+                    :meeting="meeting" :course="course" :key="course.callNumber"
+                    @dblclick.native="toggleCourse(course)"></course-meeting>
+        </template>
+      </article>
+      
     </div>
   </div>`,
 });
