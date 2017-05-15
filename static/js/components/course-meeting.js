@@ -38,7 +38,6 @@ Vue.component('course-meeting', {
       if (!this.positioned) {
         return {};
       }
-      
       return {
         height: this.height,
         'margin-top': this.marginTop,
@@ -75,7 +74,6 @@ Vue.component('course-meeting', {
     <div :class="[{ positioned }, dayClass, 'component-course-meeting']" :style="styles" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
       <h3>{{ course.title }}</h3>
       <h4>{{ course.section }}</h4>
-      <h5> {{ hoursSinceStart.humanize(true) }}</h5>
       <p>Credits: {{ course.maxCredits }}</p>
       <p>Call Number: {{ course.callNumber }}</p>
       <p>Spots Left: {{ course.maxEnrollment - course.currentEnrollment }}</p>

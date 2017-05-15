@@ -190,18 +190,17 @@ Vue.component('schedule', {
         </template>
       </article>
       
-      <article class="tba-courses" v-if="shownTBACourses.length > 0">
-        <h2>TBA Courses</h2>
-        <template v-for="course in shownTBACourses">
-          <course-meeting v-for="meeting in course.meetings"
-                    :class="course === previewCourse ? 'preview' : ''"
-                    :positioned="false"
-                    :meeting="meeting" :course="course" :key="course.callNumber"
-                    @dblclick.native="toggleCourse(course)"></course-meeting>
-        </template>
-      </article>
+      <!--<article class="tba-courses" v-if="shownTBACourses.length > 0">-->
+        <!--<h2>TBA Courses</h2>-->
+        <!--<template v-for="course in shownTBACourses">-->
+          <!--<course-meeting v-for="meeting in course.meetings"-->
+                    <!--:class="course === previewCourse ? 'preview' : ''"-->
+                    <!--:positioned="false"-->
+                    <!--:meeting="meeting" :course="course" :key="course.callNumber"-->
+                    <!--@dblclick.native="toggleCourse(course)"></course-meeting>-->
+        <!--</template>-->
+      <!--</article>-->
       
-      <!--Todo: Some sort of grid layout -->
         <div id="days">
           <p class="day"> Monday </p>
           <p class="day"> Tuesday </p>

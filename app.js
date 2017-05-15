@@ -25,11 +25,25 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Passport + session setup
-app.use(session({
-  secret: config.session.secret,
-  saveUninitialized: true,
-  resave: false
-}));
+if (app.get('env') === 'production') {
+  const MongoStore = require('connect-mongo')(session);
+// Session setup
+  app.use(session({
+    secret: config.session.secret,
+    store: new MongoStore(mongoSetup.storeOptions),
+    saveUninitialized: true,
+    resave: false
+  }));
+} else {
+  // Session setup
+  // Dev store doesn't need persistence
+  app.use(session({
+    secret: config.session.secret,
+    saveUninitialized: true,
+    resave: false
+  }));
+}
+
 const { strategy, deserializeUser, serializeUser } = auth;
 passport.use(strategy);
 passport.serializeUser(serializeUser);
@@ -38,8 +52,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Route setup
-
-// Cors setup
 app.use(router);
 
 

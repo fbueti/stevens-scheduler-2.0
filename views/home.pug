@@ -9,13 +9,16 @@ block app
 		section#previews
 			h1 My Schedules
 			template(v-for="schedule in schedules")
-				schedule-preview(@click.native="scheduleSelect(schedule)"
+				schedule-preview(@click.native="scheduleSelect(schedule, $event)"
 					v-bind:schedule="schedule"
 					v-bind:class="{ selected : isSelected(schedule) }"
 					v-bind:on-delete="scheduleDeleted")
 			//	To Create a new schedule
 			div.btn-new-schedule(@click="showAddForm")
 				p + New Schedule
+
+			// Todo: Put modals here and update with information from selectedSchedule
+			//modal(name="share-modal")
 
 			modal(name="add-form-modal" classes="test")
 				form(id="add-form" v-on:submit.prevent="createSchedule")
