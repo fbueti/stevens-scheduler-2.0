@@ -3,10 +3,22 @@
 $days-of-week: M T W R F;
 $day-height: 40px;
 $day-width-pc: 20%;
+$day-width-edit-pc: 16%;
 $time-width: 50px;
 $time-height: 75px;
 $preview-color: $stevens-red;
 $preview-hover-color: $black;
+
+@mixin course-widths($width-pc) {
+  @each $day in $days-of-week {
+    $i: index($days-of-week, $day);
+
+    &.#{$day} {
+      // the offset + the width percentage * the day column
+      margin-left: calc(#{((($i - 1) * $width-pc))} + #{$time-width});
+    }
+  }
+}
 
 .component-schedule {
   height: 975px;
@@ -27,7 +39,13 @@ $preview-hover-color: $black;
       &.preview {
         color: $preview-color;
       }
+    }
+    .component-course-meeting.positioned {
+      @include course-widths($day-width-edit-pc);
+    }
 
+    .day {
+      width: $day-width-edit-pc;
     }
   }
 
@@ -54,15 +72,7 @@ $preview-hover-color: $black;
   // When on the schedule (aka not web or TBA), they are positioned
   .component-course-meeting.positioned {
     position: absolute;
-
-    @each $day in $days-of-week {
-      $i: index($days-of-week, $day);
-
-      &.#{$day} {
-        // the offset + the width percentage * the day column
-        margin-left: calc(#{((($i - 1) * $day-width-pc))} + #{$time-width});
-      }
-    }
+    @include course-widths($day-width-pc);
 
     // Don't show classes without meeting times
     &.TBA {
