@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable array-callback-return */
+const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const chaiHttp = require('chai-http');
 const HttpStatus = require('http-status-codes');
 const config = require('../../lib/utils/config');
 const { connect, disconnect } = require('../../lib/utils/mongo');
-const Schedule = require('../../lib/models/schedule');
+const {schema} = require('../../lib/models/Schedule');
+const Schedule = mongoose.model('Schedule', schema);
 
 const expect = chai.expect;
 chai.use(chaiAsPromised);
@@ -24,9 +24,9 @@ describe('Schedule Model', () => {
     cb();
   });
 
-  it('should make a new model from empty data.', () => {
-    Schedule.create({});
-    (true).should.be.true;
-    expect(true).to.be.true;
+  it('should make a new model from basic data', () => {
+    const prom = Schedule.create({ name: 'test', termCode: '2017F' });
+    prom.should.eventually.resolve;
+    return prom;
   });
 });
