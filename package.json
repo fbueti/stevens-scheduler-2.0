@@ -10,6 +10,7 @@
     "dev-build": "webpack",
     "build": "cross-env NODE_ENV=production webpack",
     "start": "node app.js",
+    "start-dev": "cross-env NODE_ENV=development node app.js",
     "start-prod": "cross-env NODE_ENV=production node app.js",
     "test": "cross-env NODE_ENV=testing mocha --reporter=nyan ./test/**/*.js",
     "lint-tests": "eslint --fix --ext .js test/** ",

@@ -10,7 +10,9 @@ services (aka Google). They are loaded in at runtime. Please do not abuse them.
 - `build`: builds the frontend with a production config
 - `test`: runs the (almost unwritten) test suite
 - `clean`: removes log files
-- `start`: currently runs under a development config
+- `start`: runs the server in whichever env is in environment
+- `start-prod`: runs under production. Frontend must already be built.
+- `start-dev`: runs under development
 
 ### Dependencies
 *devDependencies* are all testing libraries and frontend build / requirement
