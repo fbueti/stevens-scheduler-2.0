@@ -5,6 +5,5 @@ append scripts
 
 block app
 	//- An editable schedule view
-	div(v-if="scheduleLoaded")
+	div#schedule(v-if="scheduleLoaded")
 		schedule(v-bind:schedule="schedule" v-bind:editable="true")
-
