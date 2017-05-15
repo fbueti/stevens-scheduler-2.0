@@ -5,12 +5,12 @@ const chaiHttp = require('chai-http');
 const HttpStatus = require('http-status-codes');
 const config = require('../../lib/utils/config');
 const { connect, disconnect } = require('../../lib/utils/mongo');
-const {schema} = require('../../lib/models/Schedule');
+const { schema } = require('../../lib/models/Schedule');
+
+// Compile the schedule here, as it is an embedded doc and is not usually compiled
 const Schedule = mongoose.model('Schedule', schema);
 
-const expect = chai.expect;
 chai.use(chaiAsPromised);
-
 chai.should();
 
 describe('Schedule Model', () => {
